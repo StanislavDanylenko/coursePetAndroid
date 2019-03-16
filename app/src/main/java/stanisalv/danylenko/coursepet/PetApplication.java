@@ -2,13 +2,18 @@ package stanisalv.danylenko.coursepet;
 
 import android.app.Application;
 
+import lombok.Getter;
+import lombok.Setter;
 import stanisalv.danylenko.coursepet.network.RetrofitService;
 
+@Getter
+@Setter
 public class PetApplication extends Application {
 
-    public static String BASE_URL = "http://fbddd8bd.ngrok.io";
+    public static final String BASE_URL = "http://922e5dbd.ngrok.io";
 
     private RetrofitService retrofitService;
+    private String TOKEN;
 
     public PetApplication() {
         this.retrofitService = new RetrofitService();

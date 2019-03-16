@@ -17,9 +17,8 @@ public class RetrofitService {
     }
 
     public void createRetrofit(String url) {
-        BASE_URL = url;
         retrofit = new Retrofit.Builder()
-                .baseUrl(BASE_URL)
+                .baseUrl(url)
                 .addConverterFactory(JacksonConverterFactory.create())
                 .build();
     }
