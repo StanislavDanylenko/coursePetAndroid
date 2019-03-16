@@ -1,7 +1,9 @@
-package stanisalv.danylenko.coursepet;
+package stanisalv.danylenko.coursepet.activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import stanisalv.danylenko.coursepet.R;
 
 public class MainActivity extends AppCompatActivity {
 
