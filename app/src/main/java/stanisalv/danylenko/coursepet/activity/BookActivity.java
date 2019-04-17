@@ -18,7 +18,6 @@ public class BookActivity extends AppCompatActivity {
 
     private TextView tvtitle,tvdescription,tvcategory;
     private ImageView img;
-    private AlertBuilder alertBuilder;
     private Context context;
 
     @Override
@@ -43,7 +42,6 @@ public class BookActivity extends AppCompatActivity {
         tvdescription.setText(Description);
         img.setImageResource(image);
 
-        alertBuilder = new AlertBuilder();
         context = this;
     }
 

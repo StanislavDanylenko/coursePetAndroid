@@ -3,9 +3,9 @@ package stanisalv.danylenko.coursepet.activity;
 public class Book {
 
     private String Title;
-    private String Category ;
-    private String Description ;
-    private int Thumbnail ;
+    private String Category;
+    private String Description;
+    private int Thumbnail;
 
     public Book() {
     }
