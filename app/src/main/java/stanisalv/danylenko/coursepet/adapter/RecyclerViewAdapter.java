@@ -1,4 +1,4 @@
-package stanisalv.danylenko.coursepet.activity;
+package stanisalv.danylenko.coursepet.adapter;
 
 import android.content.Context;
 import android.content.Intent;
@@ -13,6 +13,8 @@ import android.widget.TextView;
 import java.util.List;
 
 import stanisalv.danylenko.coursepet.R;
+import stanisalv.danylenko.coursepet.activity.Book;
+import stanisalv.danylenko.coursepet.activity.BookActivity;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolder> {
 
@@ -30,7 +32,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
         View view ;
         LayoutInflater mInflater = LayoutInflater.from(mContext);
-        view = mInflater.inflate(R.layout.cardveiw_item_book,parent,false);
+        view = mInflater.inflate(R.layout.cardveiw_item_book, parent,false);
         return new MyViewHolder(view);
     }
 

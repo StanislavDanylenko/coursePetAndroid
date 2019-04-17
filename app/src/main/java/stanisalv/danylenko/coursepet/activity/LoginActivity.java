@@ -14,15 +14,19 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.io.IOException;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import stanisalv.danylenko.coursepet.PetApplication;
 import stanisalv.danylenko.coursepet.R;
+import stanisalv.danylenko.coursepet.entity.User;
 import stanisalv.danylenko.coursepet.entity.auth.AuthenticationRequestModel;
 import stanisalv.danylenko.coursepet.entity.auth.AuthenticationResponseModel;
 import stanisalv.danylenko.coursepet.network.RetrofitService;
 import stanisalv.danylenko.coursepet.network.retrofit.AuthService;
+import stanisalv.danylenko.coursepet.network.retrofit.UserService;
 
 /**
  * A login screen that offers login via email/password.
@@ -69,8 +73,7 @@ public class LoginActivity extends AppCompatActivity {
         service.authorize(model).enqueue(new Callback<AuthenticationResponseModel>() {
             @Override
             public void onResponse(Call<AuthenticationResponseModel> call, Response<AuthenticationResponseModel> response) {
-                showProgress(false);
-                if(response.isSuccessful()) {
+                if (response.isSuccessful()) {
                     handleSuccessAuth(response);
                 } else {
                     handleFailedAuth();
@@ -126,17 +129,18 @@ public class LoginActivity extends AppCompatActivity {
 
     private AuthenticationRequestModel getAuthValues() {
         String email = mEmailView.getText().toString();
-        String password =  mPasswordView.getText().toString();
+        String password = mPasswordView.getText().toString();
         return new AuthenticationRequestModel(email, password);
     }
 
     private void handleSuccessAuth(Response<AuthenticationResponseModel> response) {
         AuthenticationResponseModel userAuthEntity = response.body();
-        application.setTOKEN(userAuthEntity.getToken());
+        application.setTOKEN("Bearer " + userAuthEntity.getToken());
         mEmailView.setError(null);
         mPasswordView.setError(null);
-        Toast.makeText(getApplicationContext(), "AUTH SUCCESS", Toast.LENGTH_LONG).show();
-        goToMainActivity();
+        //Toast.makeText(getApplicationContext(), "AUTH SUCCESS", Toast.LENGTH_LONG).show();
+
+       getUser(userAuthEntity);
     }
 
     private void handleFailedAuth() {
@@ -149,5 +153,28 @@ public class LoginActivity extends AppCompatActivity {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
+
+    private void getUser(AuthenticationResponseModel userAuthEntity) {
+        RetrofitService retrofitService = application.getRetrofitService();
+        UserService userService = retrofitService.getRetrofit().create(UserService.class);
+        userService.getUser(application.getTOKEN(), userAuthEntity.getId()).enqueue(new Callback<User>() {
+            @Override
+            public void onResponse(Call<User> call, Response<User> response) {
+                showProgress(false);
+                if (response.isSuccessful()) {
+                    User user = response.body();
+                    goToMainActivity();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<User> call, Throwable throwable) {
+                showProgress(false);
+            }
+        });
+    }
+    // TODO: 18.04.2019 resolve call backs issue 
+
 }
+
 

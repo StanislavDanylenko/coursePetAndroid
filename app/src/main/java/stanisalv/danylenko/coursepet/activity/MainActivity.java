@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -20,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import stanisalv.danylenko.coursepet.R;
+import stanisalv.danylenko.coursepet.adapter.RecyclerViewAdapter;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -50,11 +50,13 @@ public class MainActivity extends AppCompatActivity {
         lstBook.add(new Book("The Martian","Categorie Book","Description book",R.drawable.themartian));
         lstBook.add(new Book("He Died with...","Categorie Book","Description book",R.drawable.hediedwith));
 
-        RecyclerView myrv = (RecyclerView) findViewById(R.id.recyclerview_id);
-        RecyclerViewAdapter myAdapter = new RecyclerViewAdapter(this,lstBook);
-        myrv.setHasFixedSize(true);
-        myrv.setLayoutManager(new GridLayoutManager(this, 1));
-        myrv.setAdapter(myAdapter);
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerview_id);
+
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new GridLayoutManager(this, 1));
+
+        RecyclerViewAdapter myAdapter = new RecyclerViewAdapter(this, lstBook);
+        recyclerView.setAdapter(myAdapter);
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -77,7 +79,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        String itemVal = "";
         switch(id){
             case R.id.action_settings :
                 Intent intent = new Intent(this, SettingActivity.class);
