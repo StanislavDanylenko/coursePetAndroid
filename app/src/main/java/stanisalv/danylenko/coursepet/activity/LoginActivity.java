@@ -20,7 +20,7 @@ import retrofit2.Response;
 import stanisalv.danylenko.coursepet.PetApplication;
 import stanisalv.danylenko.coursepet.R;
 import stanisalv.danylenko.coursepet.entity.auth.AuthenticationRequestModel;
-import stanisalv.danylenko.coursepet.entity.auth.GetAuthenticationModel;
+import stanisalv.danylenko.coursepet.entity.auth.AuthenticationResponseModel;
 import stanisalv.danylenko.coursepet.network.RetrofitService;
 import stanisalv.danylenko.coursepet.network.retrofit.AuthService;
 
@@ -66,9 +66,9 @@ public class LoginActivity extends AppCompatActivity {
         AuthService service = retrofitService.getRetrofit().create(AuthService.class);
         AuthenticationRequestModel model = getAuthValues();
 
-        service.authorize(model).enqueue(new Callback<GetAuthenticationModel>() {
+        service.authorize(model).enqueue(new Callback<AuthenticationResponseModel>() {
             @Override
-            public void onResponse(Call<GetAuthenticationModel> call, Response<GetAuthenticationModel> response) {
+            public void onResponse(Call<AuthenticationResponseModel> call, Response<AuthenticationResponseModel> response) {
                 showProgress(false);
                 if(response.isSuccessful()) {
                     handleSuccessAuth(response);
@@ -78,7 +78,7 @@ public class LoginActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<GetAuthenticationModel> call, Throwable t) {
+            public void onFailure(Call<AuthenticationResponseModel> call, Throwable t) {
                 showProgress(false);
                 t.printStackTrace();
                 handleFailedAuth();
@@ -130,8 +130,8 @@ public class LoginActivity extends AppCompatActivity {
         return new AuthenticationRequestModel(email, password);
     }
 
-    private void handleSuccessAuth(Response<GetAuthenticationModel> response) {
-        GetAuthenticationModel userAuthEntity = response.body();
+    private void handleSuccessAuth(Response<AuthenticationResponseModel> response) {
+        AuthenticationResponseModel userAuthEntity = response.body();
         application.setTOKEN(userAuthEntity.getToken());
         mEmailView.setError(null);
         mPasswordView.setError(null);

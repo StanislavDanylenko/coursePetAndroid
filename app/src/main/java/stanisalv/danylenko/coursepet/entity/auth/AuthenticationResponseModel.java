@@ -11,9 +11,10 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class GetAuthenticationModel implements Serializable {
+public class AuthenticationResponseModel implements Serializable {
 
     private Long id;
     private String token;
+    private String role;
 
 }
