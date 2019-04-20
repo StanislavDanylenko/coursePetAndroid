@@ -18,12 +18,15 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
+import stanisalv.danylenko.coursepet.PetApplication;
 import stanisalv.danylenko.coursepet.R;
 import stanisalv.danylenko.coursepet.adapter.RecyclerViewAdapter;
+import stanisalv.danylenko.coursepet.entity.Animal;
 
 public class MainActivity extends AppCompatActivity {
 
-    private List<Book> lstBook ;
+    private PetApplication application;
+    private List<Animal> animals;
     private Context context;
 
     @Override
@@ -33,31 +36,39 @@ public class MainActivity extends AppCompatActivity {
 
         context = this;
 
-        lstBook = new ArrayList<>();
-        lstBook.add(new Book("The Vegitarian","Categorie Book","Description book",R.drawable.thevigitarian));
-        lstBook.add(new Book("The Wild Robot","Categorie Book","Description book",R.drawable.thewildrobot));
-        lstBook.add(new Book("Maria Semples","Categorie Book","Description book",R.drawable.mariasemples));
-        lstBook.add(new Book("The Martian","Categorie Book","Description book",R.drawable.themartian));
-        lstBook.add(new Book("He Died with...","Categorie Book","Description book",R.drawable.hediedwith));
-        lstBook.add(new Book("The Vegitarian","Categorie Book","Description book",R.drawable.thevigitarian));
-        lstBook.add(new Book("The Wild Robot","Categorie Book","Description book",R.drawable.thewildrobot));
-        lstBook.add(new Book("Maria Semples","Categorie Book","Description book",R.drawable.mariasemples));
-        lstBook.add(new Book("The Martian","Categorie Book","Description book",R.drawable.themartian));
-        lstBook.add(new Book("He Died with...","Categorie Book","Description book",R.drawable.hediedwith));
-        lstBook.add(new Book("The Vegitarian","Categorie Book","Description book",R.drawable.thevigitarian));
-        lstBook.add(new Book("The Wild Robot","Categorie Book","Description book",R.drawable.thewildrobot));
-        lstBook.add(new Book("Maria Semples","Categorie Book","Description book",R.drawable.mariasemples));
-        lstBook.add(new Book("The Martian","Categorie Book","Description book",R.drawable.themartian));
-        lstBook.add(new Book("He Died with...","Categorie Book","Description book",R.drawable.hediedwith));
+        application = (PetApplication) getApplication();
+        animals = application.getAnimals();
+
+        /*animals = new ArrayList<>();
+        animals.add(new Book("The Vegitarian","Categorie Book","Description book",R.drawable.thevigitarian));
+        animals.add(new Book("The Wild Robot","Categorie Book","Description book",R.drawable.thewildrobot));
+        animals.add(new Book("Maria Semples","Categorie Book","Description book",R.drawable.mariasemples));
+        animals.add(new Book("The Martian","Categorie Book","Description book",R.drawable.themartian));
+        animals.add(new Book("He Died with...","Categorie Book","Description book",R.drawable.hediedwith));
+        animals.add(new Book("The Vegitarian","Categorie Book","Description book",R.drawable.thevigitarian));
+        animals.add(new Book("The Wild Robot","Categorie Book","Description book",R.drawable.thewildrobot));
+        animals.add(new Book("Maria Semples","Categorie Book","Description book",R.drawable.mariasemples));
+        animals.add(new Book("The Martian","Categorie Book","Description book",R.drawable.themartian));
+        animals.add(new Book("He Died with...","Categorie Book","Description book",R.drawable.hediedwith));
+        animals.add(new Book("The Vegitarian","Categorie Book","Description book",R.drawable.thevigitarian));
+        animals.add(new Book("The Wild Robot","Categorie Book","Description book",R.drawable.thewildrobot));
+        animals.add(new Book("Maria Semples","Categorie Book","Description book",R.drawable.mariasemples));
+        animals.add(new Book("The Martian","Categorie Book","Description book",R.drawable.themartian));
+        animals.add(new Book("He Died with...","Categorie Book","Description book",R.drawable.hediedwith));*/
+
+
 
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerview_id);
 
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new GridLayoutManager(this, 1));
 
-        RecyclerViewAdapter myAdapter = new RecyclerViewAdapter(this, lstBook);
+        RecyclerViewAdapter myAdapter = new RecyclerViewAdapter(this, animals);
         recyclerView.setAdapter(myAdapter);
 
+
+
+        // FAB
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -94,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
     public void getAlertA(View view) {
         // get prompts.xml view
         LayoutInflater layoutInflater = LayoutInflater.from(context);
-        View promptView = layoutInflater.inflate(R.layout.input_dialog, null);
+        View promptView = layoutInflater.inflate(R.layout.sample_input_dialog, null);
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
         alertDialogBuilder.setView(promptView);
         alertDialogBuilder.setTitle("Title");

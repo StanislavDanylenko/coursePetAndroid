@@ -15,14 +15,15 @@ import java.util.List;
 import stanisalv.danylenko.coursepet.R;
 import stanisalv.danylenko.coursepet.activity.Book;
 import stanisalv.danylenko.coursepet.activity.BookActivity;
+import stanisalv.danylenko.coursepet.entity.Animal;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolder> {
 
     private Context mContext ;
-    private List<Book> mData ;
+    private List<Animal> mData ;
 
 
-    public RecyclerViewAdapter(Context mContext, List<Book> mData) {
+    public RecyclerViewAdapter(Context mContext, List<Animal> mData) {
         this.mContext = mContext;
         this.mData = mData;
     }
@@ -32,15 +33,15 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
         View view ;
         LayoutInflater mInflater = LayoutInflater.from(mContext);
-        view = mInflater.inflate(R.layout.cardveiw_item_book, parent,false);
+        view = mInflater.inflate(R.layout.cardveiw_item_animal, parent,false);
         return new MyViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, final int position) {
 
-        holder.tv_book_title.setText(mData.get(position).getTitle());
-        holder.img_book_thumbnail.setImageResource(mData.get(position).getThumbnail());
+        holder.tv_book_title.setText(mData.get(position).getName());
+        holder.img_book_thumbnail.setImageResource(R.drawable.logo);
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -48,9 +49,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 Intent intent = new Intent(mContext, BookActivity.class);
 
                 // passing data to the book activity
-                intent.putExtra("Title",mData.get(position).getTitle());
-                intent.putExtra("Description",mData.get(position).getDescription());
-                intent.putExtra("Thumbnail",mData.get(position).getThumbnail());
+                intent.putExtra("Title",mData.get(position).getName());
+                intent.putExtra("Description",mData.get(position).getSmartCardId());
+                intent.putExtra("Thumbnail", R.drawable.logo);
                 // start the activity
                 mContext.startActivity(intent);
 

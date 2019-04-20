@@ -23,7 +23,7 @@ public class BookActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_book_);
+        setContentView(R.layout.activity_view_animal);
 
         tvtitle = (TextView) findViewById(R.id.txttitle);
         tvdescription = (TextView) findViewById(R.id.txtDesc);
@@ -48,7 +48,7 @@ public class BookActivity extends AppCompatActivity {
     public void getAlert(View view) {
         // get prompts.xml view
         LayoutInflater layoutInflater = LayoutInflater.from(context);
-        View promptView = layoutInflater.inflate(R.layout.input_dialog, null);
+        View promptView = layoutInflater.inflate(R.layout.sample_input_dialog, null);
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
         alertDialogBuilder.setView(promptView);
         alertDialogBuilder.setTitle("Title");
