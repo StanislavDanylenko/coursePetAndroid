@@ -2,8 +2,15 @@ package stanisalv.danylenko.coursepet;
 
 import android.app.Application;
 
+import java.util.List;
+
 import lombok.Getter;
 import lombok.Setter;
+import stanisalv.danylenko.coursepet.entity.Animal;
+import stanisalv.danylenko.coursepet.entity.AnimalsBreed;
+import stanisalv.danylenko.coursepet.entity.CountByBreedInCountryStatistic;
+import stanisalv.danylenko.coursepet.entity.CountryWithGraft;
+import stanisalv.danylenko.coursepet.entity.User;
 import stanisalv.danylenko.coursepet.network.RetrofitService;
 
 @Getter
@@ -14,6 +21,12 @@ public class PetApplication extends Application {
 
     private RetrofitService retrofitService;
     private String TOKEN;
+
+    private User user;
+    private List<Animal> animals;
+    private List<CountryWithGraft> countries;
+    private Iterable<AnimalsBreed> breeds;
+    private List<CountByBreedInCountryStatistic> statistic;
 
     public PetApplication() {
         this.retrofitService = new RetrofitService();

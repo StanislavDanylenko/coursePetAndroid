@@ -14,7 +14,7 @@ public class CacheModel {
     private User user;
     private List<Animal> animals;
     private List<CountryWithGraft> countries;
-    private Iterable<AnimalsBreed> breeds;
+    private List<AnimalsBreed> breeds;
     private List<CountByBreedInCountryStatistic> statistic;
 
 }

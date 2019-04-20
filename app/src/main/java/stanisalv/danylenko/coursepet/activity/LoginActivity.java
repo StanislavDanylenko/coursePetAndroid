@@ -6,6 +6,7 @@ import android.annotation.TargetApi;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -139,15 +140,16 @@ public class LoginActivity extends AppCompatActivity {
         application.setTOKEN("Bearer " + userAuthEntity.getToken());
         mEmailView.setError(null);
         mPasswordView.setError(null);
-        //Toast.makeText(getApplicationContext(), "AUTH SUCCESS", Toast.LENGTH_LONG).show();
 
         getCache(userAuthEntity);
     }
 
     private void handleFailedAuth() {
-        Toast.makeText(getApplicationContext(), "AUTH FAILED", Toast.LENGTH_LONG).show();
+        Snackbar.make(getWindow().getDecorView().getRootView(), "AUTH FAILED", Snackbar.LENGTH_LONG)
+                .setAction("Action", null).show();
         mEmailView.setError("Invalid value");
         mPasswordView.setError("Invalid value");
+        showProgress(false);
     }
 
     public void goToMainActivity() {
@@ -155,7 +157,7 @@ public class LoginActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    private void getUser(AuthenticationResponseModel userAuthEntity) {
+/*    private void getUser(AuthenticationResponseModel userAuthEntity) {
         RetrofitService retrofitService = application.getRetrofitService();
         UserService userService = retrofitService.getRetrofit().create(UserService.class);
         userService.getUser(application.getTOKEN(), userAuthEntity.getId()).enqueue(new Callback<User>() {
@@ -173,7 +175,7 @@ public class LoginActivity extends AppCompatActivity {
                 showProgress(false);
             }
         });
-    }
+    }*/
 
     private void getCache(AuthenticationResponseModel userAuthEntity) {
         RetrofitService retrofitService = application.getRetrofitService();
@@ -184,13 +186,26 @@ public class LoginActivity extends AppCompatActivity {
                 showProgress(false);
                 if (response.isSuccessful()) {
                     CacheModel cacheModel = response.body();
+
+                    application.setUser(cacheModel.getUser());
+                    application.setAnimals(cacheModel.getAnimals());
+                    application.setCountries(cacheModel.getCountries());
+                    application.setBreeds(cacheModel.getBreeds());
+                    application.setStatistic(cacheModel.getStatistic());
+
                     goToMainActivity();
+
+                } else {
+                    Snackbar.make(getWindow().getDecorView().getRootView(), "Cannot load user's data, try later", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
                 }
             }
 
             @Override
             public void onFailure(Call<CacheModel> call, Throwable throwable) {
                 showProgress(false);
+                Snackbar.make(getWindow().getDecorView().getRootView(), "Cannot load user's data, try later", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
             }
         });
     }

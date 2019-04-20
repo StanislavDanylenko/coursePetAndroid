@@ -6,4 +6,56 @@
     android:layout_height="match_parent"
     tools:context=".activity.SettingActivity">
 
+    <ScrollView
+        android:id="@+id/add_animal_form"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/add_animal_linear_form"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/animal_breed_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5sp"
+                android:layout_marginLeft="5sp"
+                android:layout_marginTop="10dp"
+                android:text="Select country"
+                android:textColor="#a3a3a3"
+                android:textSize="12sp" />
+
+            <Spinner
+                android:id="@+id/animal_breed"
+                android:layout_width="match_parent"
+                android:layout_height="37dp" />
+
+            <Button
+                android:id="@+id/submit"
+                style="?android:textAppearanceSmall"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="UPDATE"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/sign_out"
+                style="?android:textAppearanceSmall"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:onClick="signOut"
+                android:text="SIGN OUT"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+
 </android.support.constraint.ConstraintLayout>

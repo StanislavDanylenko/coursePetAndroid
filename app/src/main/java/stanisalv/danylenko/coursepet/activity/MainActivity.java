@@ -64,9 +64,6 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(context, AddAnimalActivity.class);
                 startActivity(intent);
-                /*Snackbar.make(view, "Here's a Snackbar", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();*/
-                //getAlertA(view);
             }
         });
 
