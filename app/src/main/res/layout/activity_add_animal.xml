@@ -82,12 +82,12 @@
             android:id="@+id/animal_breed_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Popup"
+            android:text="Breed"
             android:layout_marginTop="10dp"
             android:textColor="#a3a3a3"
             android:textSize="12sp"
             android:layout_marginStart="5sp"
-            android:layout_marginLeft="5sp"/>
+            android:layout_marginLeft="5sp" />
 
             <Spinner
                 android:id="@+id/animal_breed"
@@ -98,19 +98,29 @@
                 android:id="@+id/radios"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal" >
+                android:orientation="horizontal"
+                android:layout_marginTop="15sp">
 
                 <RadioButton android:id="@+id/gender_male"
-                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Java"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:text="Male"
                     android:onClick="onRadioButtonClicked"/>
                 <RadioButton android:id="@+id/gender_female"
-                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="JavaScript"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:text="Female"
                     android:onClick="onRadioButtonClicked"/>
             </RadioGroup>
+
+            <TextView android:id="@+id/currentDateTime"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:gravity="center"
+                android:layout_marginTop="20sp"/>
 
             <Button android:id="@+id/dateOfBirthButton"
                 android:layout_width="match_parent"
@@ -124,8 +134,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
+                android:onClick="addAnimal"
                 android:text="Add"
-                android:textStyle="bold" />
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                app:backgroundTint="@color/colorAccent" />
 
         </LinearLayout>
     </ScrollView>

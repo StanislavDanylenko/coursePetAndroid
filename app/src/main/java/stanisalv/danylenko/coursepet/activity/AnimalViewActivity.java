@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,6 +31,10 @@ public class AnimalViewActivity extends AppCompatActivity {
     private TextView height;
     private TextView weight;
     private TextView length;
+
+    private EditText editLength;
+    private EditText editWeight;
+    private EditText editHeigth;
 
     private Context context;
     private Animal animal;
@@ -75,17 +80,25 @@ public class AnimalViewActivity extends AppCompatActivity {
     public void getAlert(View view) {
         // get prompts.xml view
         LayoutInflater layoutInflater = LayoutInflater.from(context);
-        View promptView = layoutInflater.inflate(R.layout.sample_input_dialog, null);
+        View promptView = layoutInflater.inflate(R.layout.edit_animal_dialog, null);
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
         alertDialogBuilder.setView(promptView);
-        alertDialogBuilder.setTitle("Title");
+        alertDialogBuilder.setTitle("Edit " + animal.getName());
+
+        editLength = (EditText) promptView.findViewById(R.id.edit_length);
+        editWeight = (EditText) promptView.findViewById(R.id.edit_weight);
+        editHeigth = (EditText) promptView.findViewById(R.id.edit_height);
+
+        editHeigth.setText(animal.getHeight().toString());
+        editWeight.setText(animal.getWeight().toString());
+        editLength.setText(animal.getLength().toString());
 
         //final EditText editText = (EditText) promptView.findViewById(R.id.edittext);
         // setup a dialog window
         alertDialogBuilder.setCancelable(false)
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        Toast.makeText(context, "from input text here", Toast.LENGTH_LONG).show();
+                        Toast.makeText(context, "GOOD", Toast.LENGTH_LONG).show();
                     }
                 })
                 .setNegativeButton("Cancel",
