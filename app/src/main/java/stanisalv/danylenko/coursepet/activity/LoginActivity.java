@@ -21,6 +21,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import stanisalv.danylenko.coursepet.PetApplication;
 import stanisalv.danylenko.coursepet.R;
+import stanisalv.danylenko.coursepet.entity.CacheModel;
 import stanisalv.danylenko.coursepet.entity.User;
 import stanisalv.danylenko.coursepet.entity.auth.AuthenticationRequestModel;
 import stanisalv.danylenko.coursepet.entity.auth.AuthenticationResponseModel;
@@ -140,7 +141,7 @@ public class LoginActivity extends AppCompatActivity {
         mPasswordView.setError(null);
         //Toast.makeText(getApplicationContext(), "AUTH SUCCESS", Toast.LENGTH_LONG).show();
 
-       getUser(userAuthEntity);
+        getCache(userAuthEntity);
     }
 
     private void handleFailedAuth() {
@@ -173,7 +174,26 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
-    // TODO: 18.04.2019 resolve call backs issue 
+
+    private void getCache(AuthenticationResponseModel userAuthEntity) {
+        RetrofitService retrofitService = application.getRetrofitService();
+        UserService userService = retrofitService.getRetrofit().create(UserService.class);
+        userService.getCache(application.getTOKEN(), userAuthEntity.getId()).enqueue(new Callback<CacheModel>() {
+            @Override
+            public void onResponse(Call<CacheModel> call, Response<CacheModel> response) {
+                showProgress(false);
+                if (response.isSuccessful()) {
+                    CacheModel cacheModel = response.body();
+                    goToMainActivity();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<CacheModel> call, Throwable throwable) {
+                showProgress(false);
+            }
+        });
+    }
 
 }
 

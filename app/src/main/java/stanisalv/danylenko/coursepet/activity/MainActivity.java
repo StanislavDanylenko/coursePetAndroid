@@ -62,9 +62,11 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Intent intent = new Intent(context, AddAnimalActivity.class);
+                startActivity(intent);
                 /*Snackbar.make(view, "Here's a Snackbar", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();*/
-                getAlertA(view);
+                //getAlertA(view);
             }
         });
 
@@ -83,14 +85,10 @@ public class MainActivity extends AppCompatActivity {
             case R.id.action_settings :
                 Intent intent = new Intent(this, SettingActivity.class);
                 startActivity(intent);
-                /*itemVal = "Настройки";
-                Toast.makeText(this, itemVal, Toast.LENGTH_LONG).show();*/
                 return true;
             case R.id.save_settings:
                 Intent intent1 = new Intent(this, StatisticActivity.class);
                 startActivity(intent1);
-                /*itemVal = "Сохранить";
-                Toast.makeText(this, itemVal, Toast.LENGTH_LONG).show();*/
                 return true;
         }
         return super.onOptionsItemSelected(item);

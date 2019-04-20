@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="10dp">
+
+    <TextView
+        android:id="@+id/animal_breed_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Popup"
+        android:layout_marginTop="10dp"
+        android:textColor="#a3a3a3"
+        android:textSize="12sp"
+        android:layout_marginStart="5sp"
+        android:layout_marginLeft="5sp"/>
+
+    <Spinner
+        android:id="@+id/animal_breed"
+        android:layout_width="match_parent"
+        android:layout_height="37dp"/>
+
+    <Button android:id="@+id/dateOfBirthButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Choose date of birth" />
+
+    <Button android:id="@+id/dateOfBirthButton1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Choose date of birth" />
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    <AutoCompleteTextView
+        android:id="@+id/name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Name"
+        android:inputType="text"
+        android:maxLines="1"
+        android:singleLine="true" />
+
+    </android.support.design.widget.TextInputLayout>
+
+</LinearLayout>
