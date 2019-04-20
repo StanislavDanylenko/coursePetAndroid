@@ -13,8 +13,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import stanisalv.danylenko.coursepet.R;
-import stanisalv.danylenko.coursepet.activity.Book;
-import stanisalv.danylenko.coursepet.activity.BookActivity;
+import stanisalv.danylenko.coursepet.activity.AnimalViewActivity;
 import stanisalv.danylenko.coursepet.entity.Animal;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolder> {
@@ -40,18 +39,15 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @Override
     public void onBindViewHolder(MyViewHolder holder, final int position) {
 
-        holder.tv_book_title.setText(mData.get(position).getName());
-        holder.img_book_thumbnail.setImageResource(R.drawable.logo);
+        holder.animal_title.setText(mData.get(position).getName());
+        holder.img_animal_thumbnail.setImageResource(R.drawable.logo);
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(mContext, BookActivity.class);
-
+                Intent intent = new Intent(mContext, AnimalViewActivity.class);
                 // passing data to the book activity
-                intent.putExtra("Title",mData.get(position).getName());
-                intent.putExtra("Description",mData.get(position).getSmartCardId());
-                intent.putExtra("Thumbnail", R.drawable.logo);
+                intent.putExtra("Animal", mData.get(position));
                 // start the activity
                 mContext.startActivity(intent);
 
@@ -66,15 +62,15 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
 
-        TextView tv_book_title;
-        ImageView img_book_thumbnail;
+        TextView animal_title;
+        ImageView img_animal_thumbnail;
         CardView cardView ;
 
         public MyViewHolder(View itemView) {
             super(itemView);
 
-            tv_book_title = (TextView) itemView.findViewById(R.id.book_title_id) ;
-            img_book_thumbnail = (ImageView) itemView.findViewById(R.id.book_img_id);
+            animal_title = (TextView) itemView.findViewById(R.id.animal_name_id) ;
+            img_animal_thumbnail = (ImageView) itemView.findViewById(R.id.animal_img_id);
             cardView = (CardView) itemView.findViewById(R.id.cardview_id);
 
 

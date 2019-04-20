@@ -39,25 +39,7 @@ public class MainActivity extends AppCompatActivity {
         application = (PetApplication) getApplication();
         animals = application.getAnimals();
 
-        /*animals = new ArrayList<>();
-        animals.add(new Book("The Vegitarian","Categorie Book","Description book",R.drawable.thevigitarian));
-        animals.add(new Book("The Wild Robot","Categorie Book","Description book",R.drawable.thewildrobot));
-        animals.add(new Book("Maria Semples","Categorie Book","Description book",R.drawable.mariasemples));
-        animals.add(new Book("The Martian","Categorie Book","Description book",R.drawable.themartian));
-        animals.add(new Book("He Died with...","Categorie Book","Description book",R.drawable.hediedwith));
-        animals.add(new Book("The Vegitarian","Categorie Book","Description book",R.drawable.thevigitarian));
-        animals.add(new Book("The Wild Robot","Categorie Book","Description book",R.drawable.thewildrobot));
-        animals.add(new Book("Maria Semples","Categorie Book","Description book",R.drawable.mariasemples));
-        animals.add(new Book("The Martian","Categorie Book","Description book",R.drawable.themartian));
-        animals.add(new Book("He Died with...","Categorie Book","Description book",R.drawable.hediedwith));
-        animals.add(new Book("The Vegitarian","Categorie Book","Description book",R.drawable.thevigitarian));
-        animals.add(new Book("The Wild Robot","Categorie Book","Description book",R.drawable.thewildrobot));
-        animals.add(new Book("Maria Semples","Categorie Book","Description book",R.drawable.mariasemples));
-        animals.add(new Book("The Martian","Categorie Book","Description book",R.drawable.themartian));
-        animals.add(new Book("He Died with...","Categorie Book","Description book",R.drawable.hediedwith));*/
-
-
-
+        // RW
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerview_id);
 
         recyclerView.setHasFixedSize(true);
@@ -65,7 +47,6 @@ public class MainActivity extends AppCompatActivity {
 
         RecyclerViewAdapter myAdapter = new RecyclerViewAdapter(this, animals);
         recyclerView.setAdapter(myAdapter);
-
 
 
         // FAB
@@ -102,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void getAlertA(View view) {
+   /* public void getAlertA(View view) {
         // get prompts.xml view
         LayoutInflater layoutInflater = LayoutInflater.from(context);
         View promptView = layoutInflater.inflate(R.layout.sample_input_dialog, null);
@@ -128,5 +109,5 @@ public class MainActivity extends AppCompatActivity {
         // create an alert dialog
         AlertDialog alert = alertDialogBuilder.create();
         alert.show();
-    }
+    }*/
 }

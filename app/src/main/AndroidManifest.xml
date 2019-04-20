@@ -44,7 +44,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.BookActivity"
+            android:name=".activity.AnimalViewActivity"
             android:parentActivityName=".activity.MainActivity" />
     </application>
 

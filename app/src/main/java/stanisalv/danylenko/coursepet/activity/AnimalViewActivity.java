@@ -8,39 +8,66 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
+
 import stanisalv.danylenko.coursepet.R;
+import stanisalv.danylenko.coursepet.entity.Animal;
 
-public class BookActivity extends AppCompatActivity {
+public class AnimalViewActivity extends AppCompatActivity {
 
-    private TextView tvtitle,tvdescription,tvcategory;
     private ImageView img;
+
+    private TextView name;
+    private TextView gender;
+    private TextView smartCardId;
+    private TextView breed;
+    private TextView birthDate;
+    private TextView height;
+    private TextView weight;
+    private TextView length;
+
     private Context context;
+    private Animal animal;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_animal);
 
-        tvtitle = (TextView) findViewById(R.id.txttitle);
-        tvdescription = (TextView) findViewById(R.id.txtDesc);
-        tvcategory = (TextView) findViewById(R.id.txtCat);
-        img = (ImageView) findViewById(R.id.bookthumbnail);
+        img = (ImageView) findViewById(R.id.animal_image);
+
+        name = (TextView) findViewById(R.id.animal_name);
+        gender = (TextView) findViewById(R.id.animal_gender);
+        smartCardId = (TextView) findViewById(R.id.animal_smart_c_id);
+        breed = (TextView) findViewById(R.id.animal_breed);
+        birthDate = (TextView) findViewById(R.id.animal_birth_date);
+        height = (TextView) findViewById(R.id.animal_height);
+        length = (TextView) findViewById(R.id.animal_length);
+        weight = (TextView) findViewById(R.id.animal_weight);
 
         // Recieve data
         Intent intent = getIntent();
-        String Title = intent.getExtras().getString("Title");
-        String Description = intent.getExtras().getString("Description");
-        int image = intent.getExtras().getInt("Thumbnail") ;
+        animal = (Animal)intent.getSerializableExtra("Animal");
+
 
         // Setting values
+        img.setImageResource(R.drawable.logo);
 
-        tvtitle.setText(Title);
-        tvdescription.setText(Description);
-        img.setImageResource(image);
+        name.setText(animal.getName());
+        gender.setText(animal.getGender().name());
+        smartCardId.setText("Smart card ID: " + animal.getSmartCardId());
+        breed.setText("Breed: " + animal.getAnimalsBreed().getName());
+        height.setText("Height: " + animal.getHeight().toString());
+        length.setText("Length: " + animal.getLength().toString());
+        weight.setText("Weight: " + animal.getWeight().toString());
+
+        SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
+        birthDate.setText(dateFormatter.format(animal.getBirthDate()));
 
         context = this;
     }
@@ -71,5 +98,9 @@ public class BookActivity extends AppCompatActivity {
         // create an alert dialog
         AlertDialog alert = alertDialogBuilder.create();
         alert.show();
+    }
+
+    public void deleteAnimal(View view) {
+
     }
 }
