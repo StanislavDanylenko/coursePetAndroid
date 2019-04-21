@@ -9,11 +9,9 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -45,7 +43,7 @@ public class AnimalViewActivity extends AppCompatActivity {
 
     private EditText editLength;
     private EditText editWeight;
-    private EditText editHeigth;
+    private EditText editHeight;
 
     private Context context;
     private Animal animal;
@@ -102,9 +100,9 @@ public class AnimalViewActivity extends AppCompatActivity {
 
         editLength = (EditText) promptView.findViewById(R.id.edit_length);
         editWeight = (EditText) promptView.findViewById(R.id.edit_weight);
-        editHeigth = (EditText) promptView.findViewById(R.id.edit_height);
+        editHeight = (EditText) promptView.findViewById(R.id.edit_height);
 
-        editHeigth.setText(animal.getHeight().toString());
+        editHeight.setText(animal.getHeight().toString());
         editWeight.setText(animal.getWeight().toString());
         editLength.setText(animal.getLength().toString());
 
@@ -113,7 +111,7 @@ public class AnimalViewActivity extends AppCompatActivity {
         alertDialogBuilder.setCancelable(false)
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        if(validateValuesFromUpdateInputs(editHeigth, editLength, editWeight)) {
+                        if(validateValuesFromUpdateInputs(editHeight, editLength, editWeight)) {
                             try {
                                 AnimalUpdateDto dto = getValuesFromUpdateInputs();
                                 updateAnimal(animal.getId(), dto);
@@ -195,7 +193,7 @@ public class AnimalViewActivity extends AppCompatActivity {
 
         AnimalUpdateDto dto = new AnimalUpdateDto();
 
-        dto.setHeight(Double.parseDouble(editHeigth.getText().toString()));
+        dto.setHeight(Double.parseDouble(editHeight.getText().toString()));
         dto.setWeight(Double.parseDouble(editWeight.getText().toString()));
         dto.setLength(Double.parseDouble(editLength.getText().toString()));
 

@@ -15,4 +15,8 @@ public class CountryWithGraft implements Serializable {
     private Country country;
     private List<Graft> grafts;
 
+    @Override
+    public String toString() {
+        return country.getName();
+    }
 }

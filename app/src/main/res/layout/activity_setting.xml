@@ -19,6 +19,14 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/current_country"
+                android:layout_marginTop="10dp"
+                android:textSize="18sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Current country"/>
+
+            <TextView
                 android:id="@+id/animal_breed_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -30,7 +38,7 @@
                 android:textSize="12sp" />
 
             <Spinner
-                android:id="@+id/animal_breed"
+                android:id="@+id/countries"
                 android:layout_width="match_parent"
                 android:layout_height="37dp" />
 
@@ -40,7 +48,18 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
+                android:onClick="updateProfile"
                 android:text="UPDATE"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/submit_all"
+                style="?android:textAppearanceSmall"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:onClick="updateCacheData"
+                android:text="UPDATE ALL PROFILE DATA"
                 android:textStyle="bold" />
 
             <Button
@@ -51,7 +70,10 @@
                 android:layout_marginTop="16dp"
                 android:onClick="signOut"
                 android:text="SIGN OUT"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                app:backgroundTint="@color/delete"
+                />
 
         </LinearLayout>
 
