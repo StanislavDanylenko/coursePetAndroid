@@ -7,7 +7,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import stanisalv.danylenko.coursepet.entity.Disease;
-import stanisalv.danylenko.coursepet.entity.animal.Animal;
 
 @Data
 @AllArgsConstructor

@@ -6,7 +6,10 @@ import java.util.List;
 
 import lombok.Getter;
 import lombok.Setter;
+import stanisalv.danylenko.coursepet.entity.SmartDevice;
 import stanisalv.danylenko.coursepet.entity.animal.Animal;
+import stanisalv.danylenko.coursepet.entity.animal.AnimalDisease;
+import stanisalv.danylenko.coursepet.entity.animal.AnimalGraft;
 import stanisalv.danylenko.coursepet.entity.animal.AnimalsBreed;
 import stanisalv.danylenko.coursepet.entity.CountByBreedInCountryStatistic;
 import stanisalv.danylenko.coursepet.entity.country.CountryWithGraft;
@@ -27,6 +30,10 @@ public class PetApplication extends Application {
     private List<CountryWithGraft> countries;
     private List<AnimalsBreed> breeds;
     private List<CountByBreedInCountryStatistic> statistic;
+
+    private List<AnimalDisease> animalDiseases;
+    private List<AnimalGraft> animalGrafts;
+    private List<SmartDevice> animalSmartDevices;
 
     public PetApplication() {
         this.retrofitService = new RetrofitService();

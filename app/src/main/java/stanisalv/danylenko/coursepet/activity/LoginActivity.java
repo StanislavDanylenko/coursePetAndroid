@@ -153,26 +153,6 @@ public class LoginActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-/*    private void getUser(AuthenticationResponseModel userAuthEntity) {
-        RetrofitService retrofitService = application.getRetrofitService();
-        UserService userService = retrofitService.getRetrofit().create(UserService.class);
-        userService.getUser(application.getTOKEN(), userAuthEntity.getId()).enqueue(new Callback<User>() {
-            @Override
-            public void onResponse(Call<User> call, Response<User> response) {
-                showProgress(false);
-                if (response.isSuccessful()) {
-                    User user = response.body();
-                    goToMainActivity();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<User> call, Throwable throwable) {
-                showProgress(false);
-            }
-        });
-    }*/
-
     private void getCache(AuthenticationResponseModel userAuthEntity) {
         RetrofitService retrofitService = application.getRetrofitService();
         UserService userService = retrofitService.getRetrofit().create(UserService.class);

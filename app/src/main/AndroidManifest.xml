@@ -19,8 +19,15 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning"
         tools:replace="android:icon">
-        <activity android:name=".activity.DiseaseActivity"></activity>
-        <activity android:name=".activity.CountryActivity" />
+        <activity
+            android:name=".activity.DiseaseActivity"
+            android:label="Diseases"
+            android:parentActivityName=".activity.AddAnimalActivity">
+        </activity>
+        <activity
+            android:name=".activity.CountryActivity"
+            android:label="Country"
+            android:parentActivityName=".activity.MainActivity"/>
         <activity
             android:name=".activity.AddAnimalActivity"
             android:label="Add animal"

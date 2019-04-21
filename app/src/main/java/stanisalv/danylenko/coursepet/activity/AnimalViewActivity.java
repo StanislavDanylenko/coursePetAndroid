@@ -23,6 +23,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import stanisalv.danylenko.coursepet.PetApplication;
 import stanisalv.danylenko.coursepet.R;
+import stanisalv.danylenko.coursepet.entity.Disease;
 import stanisalv.danylenko.coursepet.entity.SmartDevice;
 import stanisalv.danylenko.coursepet.entity.animal.Animal;
 import stanisalv.danylenko.coursepet.entity.animal.AnimalDisease;
@@ -85,6 +86,7 @@ public class AnimalViewActivity extends AppCompatActivity {
         animal = (Animal)intent.getSerializableExtra("Animal");
 
         animalSmartDevices = animal.getSmartDevices();
+        application.setAnimalSmartDevices(animalSmartDevices);
 
                 // Setting values
         img.setImageResource(R.drawable.logo);
@@ -214,8 +216,12 @@ public class AnimalViewActivity extends AppCompatActivity {
             public void onResponse(Call<AnimalFullInfoDto> call, Response<AnimalFullInfoDto> response) {
                 if(response.isSuccessful()) {
                     AnimalFullInfoDto animalFullInfo = response.body();
+
                     animalDiseases = animalFullInfo.getDiseases();
                     animalGrafts = animalFullInfo.getGrafts();
+
+                    application.setAnimalDiseases(animalDiseases);
+                    application.setAnimalGrafts(animalGrafts);
                 } else {
                     handleFailedGetFullInfo();
                 }
@@ -278,8 +284,8 @@ public class AnimalViewActivity extends AppCompatActivity {
         int id = item.getItemId();
         switch(id){
             case R.id.check_country :
-                /*Intent intent = new Intent(this, SettingActivity.class);
-                startActivity(intent);*/
+                Intent intent = new Intent(this, CountryActivity.class);
+                startActivity(intent);
                 return true;
             case R.id.action_grafts:
                 /*Intent intent1 = new Intent(this, StatisticActivity.class);
@@ -288,6 +294,8 @@ public class AnimalViewActivity extends AppCompatActivity {
             case R.id.action_sd:
                 return true;
             case R.id.action_diseases:
+                Intent intentCountry = new Intent(this, DiseaseActivity.class);
+                startActivity(intentCountry);
                 return true;
             case R.id.update_settings:
                 return true;
