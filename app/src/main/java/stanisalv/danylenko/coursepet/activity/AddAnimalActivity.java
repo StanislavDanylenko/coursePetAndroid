@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -45,10 +46,10 @@ public class AddAnimalActivity extends AppCompatActivity {
 
     private TextView currentDateTime;
 
-    private TextView animalName;
-    private TextView animalWeight;
-    private TextView animalHeight;
-    private TextView animalLength;
+    private EditText animalName;
+    private EditText animalWeight;
+    private EditText animalHeight;
+    private EditText animalLength;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,10 +85,10 @@ public class AddAnimalActivity extends AppCompatActivity {
         dropdownBreed.setSelection(0);
 
         currentDateTime = (TextView) findViewById(R.id.currentDateTime);
-        animalName = (TextView) findViewById(R.id.name);
-        animalWeight = (TextView) findViewById(R.id.weight);
-        animalHeight = (TextView) findViewById(R.id.height);
-        animalLength = (TextView) findViewById(R.id.length);
+        animalName = (EditText) findViewById(R.id.name);
+        animalWeight = (EditText) findViewById(R.id.weight);
+        animalHeight = (EditText) findViewById(R.id.height);
+        animalLength = (EditText) findViewById(R.id.length);
 
         setInitialDateTime();
     }
@@ -169,7 +170,7 @@ public class AddAnimalActivity extends AppCompatActivity {
                 .setAction("Action", null).show();
     }
 
-    private boolean validateInputs(TextView... views) {
+    private boolean validateInputs(EditText... views) {
 
         for(TextView textView : views) {
             if("".equals(textView.getText())) {

@@ -24,6 +24,7 @@ import retrofit2.Response;
 import stanisalv.danylenko.coursepet.PetApplication;
 import stanisalv.danylenko.coursepet.R;
 import stanisalv.danylenko.coursepet.entity.Animal;
+import stanisalv.danylenko.coursepet.entity.AnimalUpdateDto;
 import stanisalv.danylenko.coursepet.network.RetrofitService;
 import stanisalv.danylenko.coursepet.network.retrofit.AnimalService;
 
@@ -112,7 +113,15 @@ public class AnimalViewActivity extends AppCompatActivity {
         alertDialogBuilder.setCancelable(false)
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        Toast.makeText(context, "GOOD", Toast.LENGTH_LONG).show();
+                        if(validateValuesFromUpdateInputs(editHeigth, editLength, editWeight)) {
+                            try {
+                                AnimalUpdateDto dto = getValuesFromUpdateInputs();
+                                updateAnimal(animal.getId(), dto);
+                            } catch (Exception e) {
+                                Snackbar.make(getWindow().getDecorView().getRootView(), "Invalid data", Snackbar.LENGTH_LONG)
+                                        .setAction("Action", null).show();
+                            }
+                        }
                     }
                 })
                 .setNegativeButton("Cancel",
@@ -150,14 +159,68 @@ public class AnimalViewActivity extends AppCompatActivity {
     }
 
     private void deleteAnimalFromList(Long animalId) {
-
         for(Animal animal : animals) {
             if(animal.getId().equals(animalId)) {
                 animals.remove(animal);
                 return;
             }
+        }
+    }
 
+    private void updateAnimal(Long animalId, AnimalUpdateDto dto) {
+        RetrofitService retrofitService = application.getRetrofitService();
+        AnimalService service = retrofitService.getRetrofit().create(AnimalService.class);
+
+        service.updateAnimal(application.getTOKEN(), animalId, dto).enqueue(new Callback<Animal>() {
+            @Override
+            public void onResponse(Call<Animal> call, Response<Animal> response) {
+                if (response.isSuccessful()) {
+                    Animal updatedAnimal = response.body();
+                    animal = updatedAnimal;
+                    handleSuccessUpdating();
+                } else {
+                    handleFailedUpdating();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Animal> call, Throwable t) {
+                t.printStackTrace();
+                handleFailedUpdating();
+            }
+        });
+    }
+
+    private AnimalUpdateDto getValuesFromUpdateInputs() {
+
+        AnimalUpdateDto dto = new AnimalUpdateDto();
+
+        dto.setHeight(Double.parseDouble(editHeigth.getText().toString()));
+        dto.setWeight(Double.parseDouble(editWeight.getText().toString()));
+        dto.setLength(Double.parseDouble(editLength.getText().toString()));
+
+        return dto;
+    }
+
+    private boolean validateValuesFromUpdateInputs(EditText... views) {
+        for(EditText textView : views) {
+            if("".equals(textView.getText())) {
+                textView.setError("This field is required");
+                return false;
+            }
         }
 
+        return true;
+    }
+
+    private void handleFailedUpdating() {
+        Snackbar.make(getWindow().getDecorView().getRootView(), "Cannot update animal, try later", Snackbar.LENGTH_LONG)
+                .setAction("Action", null).show();
+    }
+
+    private void handleSuccessUpdating() {
+        height.setText("Height: " + animal.getHeight().toString());
+        length.setText("Length: " + animal.getLength().toString());
+        weight.setText("Weight: " + animal.getWeight().toString());
     }
 }
