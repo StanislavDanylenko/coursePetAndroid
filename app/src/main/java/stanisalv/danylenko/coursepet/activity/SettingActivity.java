@@ -99,6 +99,7 @@ public class SettingActivity extends AppCompatActivity {
                     User updatedUser = response.body();
                     if (!user.getCountry().equals(updatedUser.getCountry())) {
                         user = updatedUser;
+                        currentCountry.setText("Current country: " + user.getCountry().getName());
                         updateStatistic(updatedUser.getCountry().getId());
                     }
                     handleSuccessUpdating();
@@ -130,6 +131,8 @@ public class SettingActivity extends AppCompatActivity {
                     application.setCountries(cacheModel.getCountries());
                     application.setBreeds(cacheModel.getBreeds());
                     application.setStatistic(cacheModel.getStatistic());
+
+                    currentCountry.setText("Current country: " + user.getCountry().getName());
 
                     handleSuccessUpdating();
                 } else {
