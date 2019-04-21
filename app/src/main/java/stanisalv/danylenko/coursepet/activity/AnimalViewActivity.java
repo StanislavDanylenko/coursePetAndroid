@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
@@ -15,11 +16,20 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
+import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import stanisalv.danylenko.coursepet.PetApplication;
 import stanisalv.danylenko.coursepet.R;
 import stanisalv.danylenko.coursepet.entity.Animal;
+import stanisalv.danylenko.coursepet.network.RetrofitService;
+import stanisalv.danylenko.coursepet.network.retrofit.AnimalService;
 
 public class AnimalViewActivity extends AppCompatActivity {
+
+    private PetApplication application;
 
     private ImageView img;
 
@@ -38,11 +48,15 @@ public class AnimalViewActivity extends AppCompatActivity {
 
     private Context context;
     private Animal animal;
+    private List<Animal> animals;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_animal);
+
+        application = (PetApplication) getApplication();
+        animals = application.getAnimals();
 
         img = (ImageView) findViewById(R.id.animal_image);
 
@@ -114,6 +128,36 @@ public class AnimalViewActivity extends AppCompatActivity {
     }
 
     public void deleteAnimal(View view) {
+
+        RetrofitService retrofitService = application.getRetrofitService();
+        AnimalService service = retrofitService.getRetrofit().create(AnimalService.class);
+
+        service.deleteAnimal(application.getTOKEN(), animal.getId()).enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                deleteAnimalFromList(animal.getId());
+                Intent intent = new Intent(context, MainActivity.class);
+                startActivity(intent);
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable throwable) {
+                Snackbar.make(getWindow().getDecorView().getRootView(), "Cannot delete animal, try later", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            }
+        });
+
+    }
+
+    private void deleteAnimalFromList(Long animalId) {
+
+        for(Animal animal : animals) {
+            if(animal.getId().equals(animalId)) {
+                animals.remove(animal);
+                return;
+            }
+
+        }
 
     }
 }
