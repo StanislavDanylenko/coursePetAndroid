@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -16,18 +17,30 @@ import android.view.View;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import stanisalv.danylenko.coursepet.PetApplication;
 import stanisalv.danylenko.coursepet.R;
 import stanisalv.danylenko.coursepet.adapter.RecyclerViewAdapter;
 import stanisalv.danylenko.coursepet.entity.Animal;
+import stanisalv.danylenko.coursepet.entity.User;
+import stanisalv.danylenko.coursepet.network.RetrofitService;
+import stanisalv.danylenko.coursepet.network.retrofit.AnimalService;
 
 public class MainActivity extends AppCompatActivity {
 
     private PetApplication application;
+
     private List<Animal> animals;
+    private User user;
+
     private Context context;
+
+    private RecyclerViewAdapter myAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
 
         application = (PetApplication) getApplication();
         animals = application.getAnimals();
+        user = application.getUser();
 
         // RW
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerview_id);
@@ -45,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new GridLayoutManager(this, 1));
 
-        RecyclerViewAdapter myAdapter = new RecyclerViewAdapter(this, animals);
+        myAdapter = new RecyclerViewAdapter(this, animals);
         recyclerView.setAdapter(myAdapter);
 
 
@@ -79,6 +93,9 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent1 = new Intent(this, StatisticActivity.class);
                 startActivity(intent1);
                 return true;
+            case R.id.update_settings:
+                updateAnimals();
+                return true;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -110,4 +127,27 @@ public class MainActivity extends AppCompatActivity {
         AlertDialog alert = alertDialogBuilder.create();
         alert.show();
     }*/
+   public void updateAnimals() {
+       RetrofitService retrofitService = application.getRetrofitService();
+       AnimalService service = retrofitService.getRetrofit().create(AnimalService.class);
+
+       service.updateAnimals(application.getTOKEN(), user.getId()).enqueue(new Callback<List<Animal>>() {
+           @Override
+           public void onResponse(Call<List<Animal>> call, Response<List<Animal>> response) {
+               if(response.isSuccessful()) {
+                   List<Animal> animalList = response.body();
+                   animals.clear();
+                   animals.addAll(animalList);
+                   myAdapter.notifyDataSetChanged();
+               }
+           }
+
+           @Override
+           public void onFailure(Call<List<Animal>> call, Throwable throwable) {
+               Snackbar.make(getWindow().getDecorView().getRootView(), "Cannot update animal list, try later", Snackbar.LENGTH_LONG)
+                       .setAction("Action", null).show();
+           }
+       });
+
+   }
 }

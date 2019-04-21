@@ -9,8 +9,14 @@
         app:showAsAction="ifRoom"/>
     <item
         android:id="@+id/save_settings"
-        android:orderInCategory="3"
+        android:orderInCategory="2"
         android:title="Статистика"
         android:icon="@drawable/ic_statistics_black_24dp"
+        app:showAsAction="ifRoom"/>
+    <item
+        android:id="@+id/update_settings"
+        android:orderInCategory="3"
+        android:title="Обновить"
+        android:icon="@drawable/ic_refresh_black"
         app:showAsAction="ifRoom"/>
 </menu>
