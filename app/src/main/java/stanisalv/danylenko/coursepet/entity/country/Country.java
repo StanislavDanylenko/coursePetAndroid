@@ -1,4 +1,4 @@
-package stanisalv.danylenko.coursepet.entity;
+package stanisalv.danylenko.coursepet.entity.country;
 
 import java.io.Serializable;
 
@@ -9,14 +9,10 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class AnimalsBreed implements Serializable {
+public class Country implements Serializable {
 
     private Long id;
     private String name;
+    private String description;
 
-
-    @Override
-    public String toString() {
-        return name;
-    }
 }

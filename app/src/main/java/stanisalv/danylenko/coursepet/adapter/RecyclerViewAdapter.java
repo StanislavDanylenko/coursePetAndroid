@@ -14,7 +14,7 @@ import java.util.List;
 
 import stanisalv.danylenko.coursepet.R;
 import stanisalv.danylenko.coursepet.activity.AnimalViewActivity;
-import stanisalv.danylenko.coursepet.entity.Animal;
+import stanisalv.danylenko.coursepet.entity.animal.Animal;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolder> {
 

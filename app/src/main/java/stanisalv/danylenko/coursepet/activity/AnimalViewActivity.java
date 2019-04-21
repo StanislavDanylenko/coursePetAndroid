@@ -8,6 +8,8 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -21,8 +23,12 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import stanisalv.danylenko.coursepet.PetApplication;
 import stanisalv.danylenko.coursepet.R;
-import stanisalv.danylenko.coursepet.entity.Animal;
-import stanisalv.danylenko.coursepet.entity.AnimalUpdateDto;
+import stanisalv.danylenko.coursepet.entity.SmartDevice;
+import stanisalv.danylenko.coursepet.entity.animal.Animal;
+import stanisalv.danylenko.coursepet.entity.animal.AnimalDisease;
+import stanisalv.danylenko.coursepet.entity.animal.AnimalFullInfoDto;
+import stanisalv.danylenko.coursepet.entity.animal.AnimalGraft;
+import stanisalv.danylenko.coursepet.entity.animal.AnimalUpdateDto;
 import stanisalv.danylenko.coursepet.network.RetrofitService;
 import stanisalv.danylenko.coursepet.network.retrofit.AnimalService;
 
@@ -46,8 +52,14 @@ public class AnimalViewActivity extends AppCompatActivity {
     private EditText editHeight;
 
     private Context context;
-    private Animal animal;
+
     private List<Animal> animals;
+
+    private Animal animal;
+
+    private List<AnimalDisease> animalDiseases;
+    private List<AnimalGraft> animalGrafts;
+    private List<SmartDevice> animalSmartDevices;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,8 +84,9 @@ public class AnimalViewActivity extends AppCompatActivity {
         Intent intent = getIntent();
         animal = (Animal)intent.getSerializableExtra("Animal");
 
+        animalSmartDevices = animal.getSmartDevices();
 
-        // Setting values
+                // Setting values
         img.setImageResource(R.drawable.logo);
 
         name.setText(animal.getName());
@@ -86,6 +99,8 @@ public class AnimalViewActivity extends AppCompatActivity {
 
         SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
         birthDate.setText(dateFormatter.format(animal.getBirthDate()));
+
+        getAnimalFullInfo(animal.getId());
 
         context = this;
     }
@@ -189,6 +204,31 @@ public class AnimalViewActivity extends AppCompatActivity {
         });
     }
 
+    private void getAnimalFullInfo(Long animalId) {
+
+        RetrofitService retrofitService = application.getRetrofitService();
+        AnimalService service = retrofitService.getRetrofit().create(AnimalService.class);
+
+        service.getAnimalFullInfo(application.getTOKEN(), animalId).enqueue(new Callback<AnimalFullInfoDto>() {
+            @Override
+            public void onResponse(Call<AnimalFullInfoDto> call, Response<AnimalFullInfoDto> response) {
+                if(response.isSuccessful()) {
+                    AnimalFullInfoDto animalFullInfo = response.body();
+                    animalDiseases = animalFullInfo.getDiseases();
+                    animalGrafts = animalFullInfo.getGrafts();
+                } else {
+                    handleFailedGetFullInfo();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<AnimalFullInfoDto> call, Throwable throwable) {
+                handleFailedGetFullInfo();
+            }
+        });
+
+    }
+
     private AnimalUpdateDto getValuesFromUpdateInputs() {
 
         AnimalUpdateDto dto = new AnimalUpdateDto();
@@ -220,5 +260,38 @@ public class AnimalViewActivity extends AppCompatActivity {
         height.setText("Height: " + animal.getHeight().toString());
         length.setText("Length: " + animal.getLength().toString());
         weight.setText("Weight: " + animal.getWeight().toString());
+    }
+
+    private void handleFailedGetFullInfo() {
+        Snackbar.make(getWindow().getDecorView().getRootView(), "Cannot get animal full info, try later", Snackbar.LENGTH_LONG)
+                .setAction("Action", null).show();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.animal_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        switch(id){
+            case R.id.check_country :
+                /*Intent intent = new Intent(this, SettingActivity.class);
+                startActivity(intent);*/
+                return true;
+            case R.id.action_grafts:
+                /*Intent intent1 = new Intent(this, StatisticActivity.class);
+                startActivity(intent1);*/
+                return true;
+            case R.id.action_sd:
+                return true;
+            case R.id.action_diseases:
+                return true;
+            case R.id.update_settings:
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

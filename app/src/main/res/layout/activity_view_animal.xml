@@ -88,26 +88,6 @@
                 android:text="Length"
                 android:layout_marginBottom="15sp"/>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" >
-
-                <Button
-                    android:id="@+id/animal_disease"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:text="Diseases" />
-
-                <Button
-                    android:id="@+id/animal_graft"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:text="Grafts" />
-
-            </LinearLayout>
-
             <Button
                 android:id="@+id/edit_animal_button"
                 android:layout_width="match_parent"

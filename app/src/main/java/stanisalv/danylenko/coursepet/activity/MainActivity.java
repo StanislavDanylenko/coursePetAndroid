@@ -1,23 +1,17 @@
 package stanisalv.danylenko.coursepet.activity;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import retrofit2.Call;
@@ -26,8 +20,8 @@ import retrofit2.Response;
 import stanisalv.danylenko.coursepet.PetApplication;
 import stanisalv.danylenko.coursepet.R;
 import stanisalv.danylenko.coursepet.adapter.RecyclerViewAdapter;
-import stanisalv.danylenko.coursepet.entity.Animal;
-import stanisalv.danylenko.coursepet.entity.User;
+import stanisalv.danylenko.coursepet.entity.animal.Animal;
+import stanisalv.danylenko.coursepet.entity.user.User;
 import stanisalv.danylenko.coursepet.network.RetrofitService;
 import stanisalv.danylenko.coursepet.network.retrofit.AnimalService;
 

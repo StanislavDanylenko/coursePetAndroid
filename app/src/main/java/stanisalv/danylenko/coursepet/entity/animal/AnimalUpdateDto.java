@@ -1,4 +1,4 @@
-package stanisalv.danylenko.coursepet.entity;
+package stanisalv.danylenko.coursepet.entity.animal;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

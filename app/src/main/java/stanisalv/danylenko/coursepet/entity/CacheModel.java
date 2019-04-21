@@ -5,6 +5,10 @@ import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import stanisalv.danylenko.coursepet.entity.animal.Animal;
+import stanisalv.danylenko.coursepet.entity.animal.AnimalsBreed;
+import stanisalv.danylenko.coursepet.entity.country.CountryWithGraft;
+import stanisalv.danylenko.coursepet.entity.user.User;
 
 @Data
 @NoArgsConstructor

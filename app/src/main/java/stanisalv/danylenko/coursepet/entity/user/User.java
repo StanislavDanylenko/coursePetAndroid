@@ -1,4 +1,4 @@
-package stanisalv.danylenko.coursepet.entity;
+package stanisalv.danylenko.coursepet.entity.user;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,6 +6,7 @@ import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import stanisalv.danylenko.coursepet.entity.country.Country;
 import stanisalv.danylenko.coursepet.entity.enumeration.Localization;
 import stanisalv.danylenko.coursepet.entity.enumeration.Role;
 

@@ -13,9 +13,6 @@ import android.view.View.OnClickListener;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
-
-import java.io.IOException;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -23,7 +20,6 @@ import retrofit2.Response;
 import stanisalv.danylenko.coursepet.PetApplication;
 import stanisalv.danylenko.coursepet.R;
 import stanisalv.danylenko.coursepet.entity.CacheModel;
-import stanisalv.danylenko.coursepet.entity.User;
 import stanisalv.danylenko.coursepet.entity.auth.AuthenticationRequestModel;
 import stanisalv.danylenko.coursepet.entity.auth.AuthenticationResponseModel;
 import stanisalv.danylenko.coursepet.network.RetrofitService;

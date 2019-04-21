@@ -17,12 +17,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".activity.CountryActivity"></activity>
+        tools:ignore="GoogleAppIndexingWarning"
+        tools:replace="android:icon">
+        <activity android:name=".activity.DiseaseActivity"></activity>
+        <activity android:name=".activity.CountryActivity" />
         <activity
             android:name=".activity.AddAnimalActivity"
             android:label="Add animal"
-            android:parentActivityName=".activity.MainActivity"></activity>
+            android:parentActivityName=".activity.MainActivity" />
         <activity
             android:name=".activity.StatisticActivity"
             android:label="Statistic"
