@@ -9,16 +9,29 @@ import android.widget.AutoCompleteTextView;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import stanisalv.danylenko.coursepet.PetApplication;
 import stanisalv.danylenko.coursepet.R;
+import stanisalv.danylenko.coursepet.entity.Graft;
+import stanisalv.danylenko.coursepet.entity.IsAvailableCountry;
+import stanisalv.danylenko.coursepet.entity.animal.Animal;
+import stanisalv.danylenko.coursepet.entity.animal.AnimalGraft;
 import stanisalv.danylenko.coursepet.entity.country.Country;
 import stanisalv.danylenko.coursepet.entity.country.CountryWithGraft;
+import stanisalv.danylenko.coursepet.network.RetrofitService;
+import stanisalv.danylenko.coursepet.network.retrofit.AnimalService;
+import stanisalv.danylenko.coursepet.network.retrofit.GraftService;
 
 public class CountryActivity extends AppCompatActivity {
 
     private PetApplication application;
+
+    private Animal animal;
 
     private List<String> countriesNames = new ArrayList<>();
     private List<CountryWithGraft> countries;
@@ -32,6 +45,8 @@ public class CountryActivity extends AppCompatActivity {
         application = (PetApplication) getApplication();
         countries = application.getCountries();
         getNameList();
+
+        animal = (Animal) getIntent().getSerializableExtra("Animal");
 
         autoCompleteTextView = (AutoCompleteTextView) findViewById(R.id.auto_complete_country);
 
@@ -59,17 +74,7 @@ public class CountryActivity extends AppCompatActivity {
                     .show();
         } else {
             Country country = getCountry(countryName);
-            if(checkAvailability(country)) {
-                new SweetAlertDialog(this, SweetAlertDialog.SUCCESS_TYPE)
-                        .setTitleText("OK")
-                        .setContentText("Yes you can!")
-                        .show();
-            } else {
-                new SweetAlertDialog(this, SweetAlertDialog.ERROR_TYPE)
-                        .setTitleText("No")
-                        .setContentText("No you can't!")
-                        .show();
-            }
+            checkAvailability(country);
         }
 
     }
@@ -83,9 +88,61 @@ public class CountryActivity extends AppCompatActivity {
         return null;
     }
 
-    private boolean checkAvailability(Country country) {
-        // TODO: 22.04.2019 if list of graft is empy get it 
-        return false;
+    private void checkAvailability(Country country) {
+
+        RetrofitService retrofitService = application.getRetrofitService();
+        AnimalService service = retrofitService.getRetrofit().create(AnimalService.class);
+
+        service.getAnimalIsAvailableCountryInfo(application.getTOKEN(), country.getId(), animal.getId()).enqueue(new Callback<IsAvailableCountry>() {
+            @Override
+            public void onResponse(Call<IsAvailableCountry> call, Response<IsAvailableCountry> response) {
+                if(response.isSuccessful()) {
+                    IsAvailableCountry availableCountry = response.body();
+                    if(!availableCountry.getIsAvailable()) {
+                        handleFailedAdding(availableCountry);
+                    } else {
+                        handleSuccessAdding();
+                    }
+                } else {
+                    handleFailedRequest();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<IsAvailableCountry> call, Throwable throwable) {
+                handleFailedRequest();
+            }
+        });
+
+    }
+
+    private void handleSuccessAdding() {
+        new SweetAlertDialog(this, SweetAlertDialog.SUCCESS_TYPE)
+                .setTitleText("OK")
+                .setContentText("Yes you can!")
+                .show();
+    }
+
+    private void handleFailedAdding(IsAvailableCountry availableCountry) {
+
+        StringBuilder stringBuilder = new StringBuilder();
+        Set<Graft> grafts = availableCountry.getGrafts();
+
+        for(Graft graft : grafts) {
+            stringBuilder.append(graft.getName()).append('\n');
+        }
+
+        new SweetAlertDialog(this, SweetAlertDialog.ERROR_TYPE)
+                .setTitleText("No")
+                .setContentText("No you can't! You need to make such grafts as: \n" + stringBuilder.toString())
+                .show();
+    }
+
+    private void handleFailedRequest() {
+        new SweetAlertDialog(this, SweetAlertDialog.ERROR_TYPE)
+                .setTitleText("No")
+                .setContentText("Bad request!")
+                .show();
     }
 
     // TODO: 22.04.2019 update list func 

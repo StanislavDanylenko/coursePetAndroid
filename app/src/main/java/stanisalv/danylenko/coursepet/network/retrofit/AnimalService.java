@@ -10,6 +10,7 @@ import retrofit2.http.Header;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
+import stanisalv.danylenko.coursepet.entity.IsAvailableCountry;
 import stanisalv.danylenko.coursepet.entity.animal.Animal;
 import stanisalv.danylenko.coursepet.entity.animal.AnimalCreateDto;
 import stanisalv.danylenko.coursepet.entity.animal.AnimalFullInfoDto;
@@ -31,5 +32,10 @@ public interface AnimalService {
 
     @GET("animal/full/{id}")
     Call<AnimalFullInfoDto> getAnimalFullInfo(@Header("Authorization") String token, @Path("id") Long animalId);
+
+    @GET("animal/country/{countryId}/animal/{animalId}")
+    Call<IsAvailableCountry> getAnimalIsAvailableCountryInfo(@Header("Authorization") String token,
+                                                             @Path("countryId") Long countryId,
+                                                             @Path("animalId") Long animalId);
 
 }

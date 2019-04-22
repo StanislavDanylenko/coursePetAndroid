@@ -314,6 +314,7 @@ public class AnimalViewActivity extends AppCompatActivity {
                 return true;
             case R.id.check_country :
                 Intent intent = new Intent(this, CountryActivity.class);
+                intent.putExtra("Animal", animal);
                 startActivity(intent);
                 return true;
             case R.id.action_grafts:
