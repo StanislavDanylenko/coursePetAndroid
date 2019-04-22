@@ -316,6 +316,9 @@ public class AnimalViewActivity extends AppCompatActivity {
                 startActivity(intentGraft);
                 return true;
             case R.id.action_sd:
+                Intent intentSD = new Intent(this, SmartDeviceActivity.class);
+                intentSD.putExtra("Animal", animal);
+                startActivity(intentSD);
                 return true;
             case R.id.action_diseases:
                 Intent intentDisease = new Intent(this, DiseaseActivity.class);
