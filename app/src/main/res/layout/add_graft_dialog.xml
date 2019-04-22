@@ -29,9 +29,11 @@
         android:gravity="center"
         android:layout_marginTop="20sp"/>
 
-    <Button android:id="@+id/graft_date"
+    <Button
+        android:id="@+id/graft_date"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:onClick="selectStartDate"
         android:text="Choose date of graft" />
 
 </LinearLayout>

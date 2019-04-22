@@ -15,4 +15,9 @@ public class Graft implements Serializable {
 
     private String name;
     private Double frequency;
+
+    @Override
+    public String toString() {
+        return name;
+    }
 }

@@ -8,6 +8,7 @@ import retrofit2.http.POST;
 import retrofit2.http.Path;
 import stanisalv.danylenko.coursepet.entity.animal.AnimalDisease;
 import stanisalv.danylenko.coursepet.entity.animal.AnimalDiseaseCreateDto;
+import stanisalv.danylenko.coursepet.entity.animal.AnimalGraft;
 import stanisalv.danylenko.coursepet.entity.animal.AnimalGraftCreateDto;
 
 public interface GraftService {
@@ -16,6 +17,6 @@ public interface GraftService {
     Call<Void> deleteGraft(@Header("Authorization") String token, @Path("id") Long diseaseId);
 
     @POST("animalGraft")
-    Call<AnimalDisease> addGraft(@Header("Authorization") String token, @Body AnimalGraftCreateDto animalGraftDto);
+    Call<AnimalGraft> addGraft(@Header("Authorization") String token, @Body AnimalGraftCreateDto animalGraftDto);
 
 }

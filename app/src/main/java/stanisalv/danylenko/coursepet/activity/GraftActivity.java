@@ -23,14 +23,23 @@ import java.util.Calendar;
 import java.util.List;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import stanisalv.danylenko.coursepet.PetApplication;
 import stanisalv.danylenko.coursepet.R;
 import stanisalv.danylenko.coursepet.adapter.DiseaseRecyclerViewAdapter;
 import stanisalv.danylenko.coursepet.adapter.GraftRecyclerViewAdapter;
 import stanisalv.danylenko.coursepet.entity.Disease;
+import stanisalv.danylenko.coursepet.entity.Graft;
+import stanisalv.danylenko.coursepet.entity.animal.Animal;
 import stanisalv.danylenko.coursepet.entity.animal.AnimalDisease;
 import stanisalv.danylenko.coursepet.entity.animal.AnimalDiseaseCreateDto;
 import stanisalv.danylenko.coursepet.entity.animal.AnimalGraft;
+import stanisalv.danylenko.coursepet.entity.animal.AnimalGraftCreateDto;
+import stanisalv.danylenko.coursepet.network.RetrofitService;
+import stanisalv.danylenko.coursepet.network.retrofit.DiseaseService;
+import stanisalv.danylenko.coursepet.network.retrofit.GraftService;
 
 public class GraftActivity extends AppCompatActivity {
 
@@ -39,9 +48,14 @@ public class GraftActivity extends AppCompatActivity {
     private Context context;
 
     private List<AnimalGraft> animalGrafts;
+    private List<Graft> grafts;
+    private AnimalGraftCreateDto createDto;
+    private Graft currentGraft;
+    private Animal animal;
 
     private GraftRecyclerViewAdapter rwAdapter;
 
+    private TextView dateTime;
     private Calendar dateAndTime = Calendar.getInstance();
 
     @Override
@@ -53,6 +67,9 @@ public class GraftActivity extends AppCompatActivity {
 
         application = (PetApplication) getApplication();
         animalGrafts = application.getAnimalGrafts();
+        grafts = application.getGrafts();
+
+        animal = (Animal) getIntent().getSerializableExtra("Animal");
 
         // RW
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.graft_recyclerview_id);
@@ -75,31 +92,27 @@ public class GraftActivity extends AppCompatActivity {
 
     public void getAddDialog() {
 
-//        createDto = new AnimalDiseaseCreateDto();
+        createDto = new AnimalGraftCreateDto();
         // get prompts.xml view
         LayoutInflater layoutInflater = LayoutInflater.from(context);
-        View promptView = layoutInflater.inflate(R.layout.add_disease_dialog, null);
+        View promptView = layoutInflater.inflate(R.layout.add_graft_dialog, null);
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
         alertDialogBuilder.setView(promptView);
-        alertDialogBuilder.setTitle("Add disease");
+        alertDialogBuilder.setTitle("Add graft");
 
-        /*startDateTime = (TextView) promptView.findViewById(R.id.date_of_disease_start_value);
-        endDateTime = (TextView) promptView.findViewById(R.id.date_of_disease_end_value);
-
-        treatment = (EditText) promptView.findViewById(R.id.treatment);
+        dateTime = (TextView) promptView.findViewById(R.id.graft_date_value);
 
         setInitialStartDateTime();
-        setInitialEndDateTime();
 
-        final Spinner dropdownDisease = (Spinner) promptView.findViewById(R.id.animal_disease);
-        final ArrayAdapter<Disease> adapterDisease = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, diseases);
-        dropdownDisease.setAdapter(adapterDisease);
-        dropdownDisease.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        final Spinner dropdownGraft = (Spinner) promptView.findViewById(R.id.animal_graft);
+        final ArrayAdapter<Graft> adapterDisease = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, grafts);
+        dropdownGraft.setAdapter(adapterDisease);
+        dropdownGraft.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Disease disease = (Disease) dropdownDisease.getSelectedItem();
-                createDto.setDiseaseId(disease.getId());
-                currentDisease = disease;
+                Graft graft = (Graft) dropdownGraft.getSelectedItem();
+                createDto.setGraftId(graft.getId());
+                currentGraft = graft;
             }
 
             @Override
@@ -107,16 +120,16 @@ public class GraftActivity extends AppCompatActivity {
 
             }
         });
-        dropdownDisease.setSelection(0);*/
+        dropdownGraft.setSelection(0);
 
         alertDialogBuilder.setCancelable(false)
                 .setPositiveButton("Add", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        /*// todo add actions here
+                        // todo add actions here
                         if(validateValuesFromUpdateInputs()) {
-                            getValuesFromAddInputs(createDto, treatment);
-                            addDisease(createDto);
-                        }*/
+                            getValuesFromAddInputs(createDto);
+                            addGraft(createDto);
+                        }
                         dialog.dismiss();
                     }
                 })
@@ -153,9 +166,9 @@ public class GraftActivity extends AppCompatActivity {
 
     // установка начальных даты и времени
     private void setInitialStartDateTime() {
-        /*dateTime.setText(DateUtils.formatDateTime(this,
+        dateTime.setText(DateUtils.formatDateTime(this,
                 dateAndTime.getTimeInMillis(),
-                DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_YEAR));*/
+                DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_YEAR));
     }
 
     // TODO: 22.04.2019 Finish next 2 methods
@@ -163,13 +176,14 @@ public class GraftActivity extends AppCompatActivity {
         return true;
     }
 
-    private void getValuesFromAddInputs() {
-
+    private void getValuesFromAddInputs(AnimalGraftCreateDto dto) {
+        dto.setAnimalId(animal.getId());
+        dto.setDate(dateAndTime.getTime());
     }
 
-    private void handleSuccessAdding(AnimalDisease animalDisease){
-       /* animalDiseases.add(animalDisease);
-        rwAdapter.notifyDataSetChanged();*/
+    private void handleSuccessAdding(AnimalGraft animalGraft){
+        animalGrafts.add(animalGraft);
+        rwAdapter.notifyDataSetChanged();
     }
 
     private void handleFailedAdding(){
@@ -177,5 +191,30 @@ public class GraftActivity extends AppCompatActivity {
                 .setTitleText("Error")
                 .setContentText("Error while saving, try later!")
                 .show();
+    }
+
+    private void addGraft(final AnimalGraftCreateDto createDto) {
+
+        RetrofitService retrofitService = application.getRetrofitService();
+        GraftService service = retrofitService.getRetrofit().create(GraftService.class);
+
+        service.addGraft(application.getTOKEN(), createDto).enqueue(new Callback<AnimalGraft>() {
+            @Override
+            public void onResponse(Call<AnimalGraft> call, Response<AnimalGraft> response) {
+                if(response.isSuccessful()) {
+                    AnimalGraft aGraft = response.body();
+                    aGraft.setGraft(currentGraft);
+                    handleSuccessAdding(aGraft);
+                } else {
+                    handleFailedAdding();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<AnimalGraft> call, Throwable throwable) {
+                handleFailedAdding();
+            }
+        });
+
     }
 }
