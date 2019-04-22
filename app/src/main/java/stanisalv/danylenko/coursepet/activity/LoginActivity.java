@@ -168,6 +168,8 @@ public class LoginActivity extends AppCompatActivity {
                     application.setCountries(cacheModel.getCountries());
                     application.setBreeds(cacheModel.getBreeds());
                     application.setStatistic(cacheModel.getStatistic());
+                    application.setDiseases(cacheModel.getDiseases());
+                    application.setGrafts(cacheModel.getGrafts());
 
                     goToMainActivity();
 

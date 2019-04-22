@@ -6,6 +6,8 @@ import java.util.List;
 
 import lombok.Getter;
 import lombok.Setter;
+import stanisalv.danylenko.coursepet.entity.Disease;
+import stanisalv.danylenko.coursepet.entity.Graft;
 import stanisalv.danylenko.coursepet.entity.SmartDevice;
 import stanisalv.danylenko.coursepet.entity.animal.Animal;
 import stanisalv.danylenko.coursepet.entity.animal.AnimalDisease;
@@ -29,6 +31,8 @@ public class PetApplication extends Application {
     private List<Animal> animals;
     private List<CountryWithGraft> countries;
     private List<AnimalsBreed> breeds;
+    private Iterable<Disease> diseases;
+    private Iterable<Graft> grafts;
     private List<CountByBreedInCountryStatistic> statistic;
 
     private List<AnimalDisease> animalDiseases;

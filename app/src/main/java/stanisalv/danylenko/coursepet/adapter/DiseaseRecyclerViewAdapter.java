@@ -46,9 +46,9 @@ public class DiseaseRecyclerViewAdapter extends RecyclerView.Adapter<DiseaseRecy
     @Override
     public DiseaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        View view ;
+        View view;
         LayoutInflater mInflater = LayoutInflater.from(mContext);
-        view = mInflater.inflate(R.layout.cardveiw_item_disease, parent,false);
+        view = mInflater.inflate(R.layout.cardveiw_item_disease, parent, false);
         return new DiseaseViewHolder(view);
     }
 
@@ -94,7 +94,7 @@ public class DiseaseRecyclerViewAdapter extends RecyclerView.Adapter<DiseaseRecy
         service.deleteDisease(application.getTOKEN(), diseaseId).enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
-                if(response.isSuccessful()) {
+                if (response.isSuccessful()) {
                     mData.remove(position);
                     handleSuccessDeleting();
                     thisAdapter.notifyDataSetChanged();
@@ -132,15 +132,15 @@ public class DiseaseRecyclerViewAdapter extends RecyclerView.Adapter<DiseaseRecy
         TextView disease_end_date;
         TextView disease_treatment;
 
-        CardView cardView ;
+        CardView cardView;
 
         public DiseaseViewHolder(View itemView) {
             super(itemView);
 
-            disease_name = (TextView) itemView.findViewById(R.id.disease_name) ;
-            disease_start_date = (TextView) itemView.findViewById(R.id.disease_start_date) ;
-            disease_end_date = (TextView) itemView.findViewById(R.id.disease_end_date) ;
-            disease_treatment = (TextView) itemView.findViewById(R.id.disease_treatment) ;
+            disease_name = (TextView) itemView.findViewById(R.id.disease_name);
+            disease_start_date = (TextView) itemView.findViewById(R.id.disease_start_date);
+            disease_end_date = (TextView) itemView.findViewById(R.id.disease_end_date);
+            disease_treatment = (TextView) itemView.findViewById(R.id.disease_treatment);
             cardView = (CardView) itemView.findViewById(R.id.disease_card_id);
 
         }

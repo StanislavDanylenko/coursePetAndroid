@@ -2,28 +2,21 @@ package stanisalv.danylenko.coursepet.activity;
 
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.EditText;
 
 import java.util.List;
 
 import stanisalv.danylenko.coursepet.PetApplication;
 import stanisalv.danylenko.coursepet.R;
 import stanisalv.danylenko.coursepet.adapter.DiseaseRecyclerViewAdapter;
-import stanisalv.danylenko.coursepet.adapter.RecyclerViewAdapter;
 import stanisalv.danylenko.coursepet.entity.animal.AnimalDisease;
-import stanisalv.danylenko.coursepet.entity.animal.AnimalUpdateDto;
 
 public class DiseaseActivity extends AppCompatActivity {
 
@@ -61,13 +54,13 @@ public class DiseaseActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               getAlert();
+               getAddDialog();
             }
         });
 
     }
 
-    public void getAlert() {
+    public void getAddDialog() {
         // get prompts.xml view
         LayoutInflater layoutInflater = LayoutInflater.from(context);
         View promptView = layoutInflater.inflate(R.layout.add_disease_dialog, null);
@@ -86,7 +79,7 @@ public class DiseaseActivity extends AppCompatActivity {
         //final EditText editText = (EditText) promptView.findViewById(R.id.edittext);
         // setup a dialog window
         alertDialogBuilder.setCancelable(false)
-                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                .setPositiveButton("Add", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         /*if(validateValuesFromUpdateInputs(editHeight, editLength, editWeight)) {
                             try {
