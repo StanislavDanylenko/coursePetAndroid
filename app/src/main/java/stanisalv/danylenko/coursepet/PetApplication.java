@@ -20,7 +20,7 @@ import stanisalv.danylenko.coursepet.network.RetrofitService;
 @Setter
 public class PetApplication extends Application {
 
-    public static final String BASE_URL = "http://a84ef7a8.ngrok.io";
+    public static final String BASE_URL = "http://4eb5e1f4.ngrok.io";
 
     private RetrofitService retrofitService;
     private String TOKEN;

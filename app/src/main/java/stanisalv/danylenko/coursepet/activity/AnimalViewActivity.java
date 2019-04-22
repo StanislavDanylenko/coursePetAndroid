@@ -18,6 +18,7 @@ import android.widget.TextView;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
+import cn.pedant.SweetAlert.SweetAlertDialog;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -89,6 +90,14 @@ public class AnimalViewActivity extends AppCompatActivity {
         application.setAnimalSmartDevices(animalSmartDevices);
 
                 // Setting values
+        setAnimalData(animal);
+
+        getAnimalFullInfo(animal.getId(), false);
+
+        context = this;
+    }
+
+    private void setAnimalData(Animal animal) {
         img.setImageResource(R.drawable.logo);
 
         name.setText(animal.getName());
@@ -101,10 +110,6 @@ public class AnimalViewActivity extends AppCompatActivity {
 
         SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
         birthDate.setText(dateFormatter.format(animal.getBirthDate()));
-
-        getAnimalFullInfo(animal.getId());
-
-        context = this;
     }
 
     public void getAlert(View view) {
@@ -206,7 +211,7 @@ public class AnimalViewActivity extends AppCompatActivity {
         });
     }
 
-    private void getAnimalFullInfo(Long animalId) {
+    private void getAnimalFullInfo(Long animalId, final boolean isUpdateData) {
 
         RetrofitService retrofitService = application.getRetrofitService();
         AnimalService service = retrofitService.getRetrofit().create(AnimalService.class);
@@ -222,6 +227,13 @@ public class AnimalViewActivity extends AppCompatActivity {
 
                     application.setAnimalDiseases(animalDiseases);
                     application.setAnimalGrafts(animalGrafts);
+
+                    if(isUpdateData) {
+                        animal = animalFullInfo.getAnimal();
+                        setAnimalData(animal);
+                        showSuccessMessage();
+                    }
+
                 } else {
                     handleFailedGetFullInfo();
                 }
@@ -233,6 +245,13 @@ public class AnimalViewActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void showSuccessMessage() {
+        new SweetAlertDialog(this, SweetAlertDialog.SUCCESS_TYPE)
+                .setTitleText("Updated!")
+                .setContentText("Successfully updated!")
+                .show();
     }
 
     private AnimalUpdateDto getValuesFromUpdateInputs() {
@@ -266,6 +285,7 @@ public class AnimalViewActivity extends AppCompatActivity {
         height.setText("Height: " + animal.getHeight().toString());
         length.setText("Length: " + animal.getLength().toString());
         weight.setText("Weight: " + animal.getWeight().toString());
+        showSuccessMessage();
     }
 
     private void handleFailedGetFullInfo() {
@@ -283,6 +303,9 @@ public class AnimalViewActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         switch(id){
+            case R.id.update_animal :
+                getAnimalFullInfo(animal.getId(), true);
+                return true;
             case R.id.check_country :
                 Intent intent = new Intent(this, CountryActivity.class);
                 startActivity(intent);

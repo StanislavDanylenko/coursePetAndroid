@@ -52,7 +52,7 @@ public class DiseaseActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new GridLayoutManager(this, 1));
 
-        rwAdapter = new DiseaseRecyclerViewAdapter(this, animalDiseases);
+        rwAdapter = new DiseaseRecyclerViewAdapter(this, animalDiseases, application);
         recyclerView.setAdapter(rwAdapter);
 
 

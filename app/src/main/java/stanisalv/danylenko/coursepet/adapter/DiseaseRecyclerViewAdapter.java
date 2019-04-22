@@ -2,6 +2,7 @@ package stanisalv.danylenko.coursepet.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -14,20 +15,32 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import stanisalv.danylenko.coursepet.PetApplication;
 import stanisalv.danylenko.coursepet.R;
 import stanisalv.danylenko.coursepet.activity.AnimalViewActivity;
+import stanisalv.danylenko.coursepet.entity.Disease;
 import stanisalv.danylenko.coursepet.entity.animal.Animal;
 import stanisalv.danylenko.coursepet.entity.animal.AnimalDisease;
+import stanisalv.danylenko.coursepet.network.RetrofitService;
+import stanisalv.danylenko.coursepet.network.retrofit.DiseaseService;
 
 public class DiseaseRecyclerViewAdapter extends RecyclerView.Adapter<DiseaseRecyclerViewAdapter.DiseaseViewHolder> {
 
-    private Context mContext ;
-    private List<AnimalDisease> mData ;
+    private PetApplication application;
+
+    private Context mContext;
+    private List<AnimalDisease> mData;
+    private DiseaseRecyclerViewAdapter thisAdapter;
 
 
-    public DiseaseRecyclerViewAdapter(Context mContext, List<AnimalDisease> mData) {
+    public DiseaseRecyclerViewAdapter(Context mContext, List<AnimalDisease> mData, PetApplication application) {
         this.mContext = mContext;
         this.mData = mData;
+        this.application = application;
+        thisAdapter = this;
     }
 
     @Override
@@ -59,6 +72,7 @@ public class DiseaseRecyclerViewAdapter extends RecyclerView.Adapter<DiseaseRecy
                         .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
                             @Override
                             public void onClick(SweetAlertDialog sDialog) {
+                                deleteDisease(mData.get(position).getId(), position);
                                 sDialog.dismissWithAnimation();
                             }
                         })
@@ -70,6 +84,45 @@ public class DiseaseRecyclerViewAdapter extends RecyclerView.Adapter<DiseaseRecy
     @Override
     public int getItemCount() {
         return mData.size();
+    }
+
+    private void deleteDisease(Long diseaseId, final int position) {
+
+        RetrofitService retrofitService = application.getRetrofitService();
+        DiseaseService service = retrofitService.getRetrofit().create(DiseaseService.class);
+
+        service.deleteDisease(application.getTOKEN(), diseaseId).enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if(response.isSuccessful()) {
+                    mData.remove(position);
+                    handleSuccessDeleting();
+                    thisAdapter.notifyDataSetChanged();
+                } else {
+                    handleFailureDeleting();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable throwable) {
+                handleFailureDeleting();
+            }
+        });
+
+    }
+
+    private void handleSuccessDeleting() {
+        new SweetAlertDialog(mContext, SweetAlertDialog.SUCCESS_TYPE)
+                .setTitleText("Success!")
+                .setContentText("Disease was deleted!")
+                .show();
+    }
+
+    private void handleFailureDeleting() {
+        new SweetAlertDialog(mContext, SweetAlertDialog.ERROR_TYPE)
+                .setTitleText("Error")
+                .setContentText("Cannot delete disease!")
+                .show();
     }
 
     public static class DiseaseViewHolder extends RecyclerView.ViewHolder {
@@ -90,9 +143,7 @@ public class DiseaseRecyclerViewAdapter extends RecyclerView.Adapter<DiseaseRecy
             disease_treatment = (TextView) itemView.findViewById(R.id.disease_treatment) ;
             cardView = (CardView) itemView.findViewById(R.id.disease_card_id);
 
-
         }
     }
-
 
 }
