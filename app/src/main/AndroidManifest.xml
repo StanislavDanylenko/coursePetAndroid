@@ -19,7 +19,13 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning"
         tools:replace="android:icon">
-        <activity android:name=".activity.SmartDeviceActivity"></activity>
+        <activity android:name=".activity.RecordActivity"
+            android:label="Records"
+            android:parentActivityName=".activity.AnimalViewActivity"/>
+        <activity
+            android:name=".activity.SmartDeviceActivity"
+            android:label="Smart Devices"
+            android:parentActivityName=".activity.AnimalViewActivity" />
         <activity
             android:name=".activity.GraftActivity"
             android:label="Grafts"

@@ -26,7 +26,7 @@
         android:orderInCategory="5"
         android:title="Diseases"/>
     <item
-        android:id="@+id/update_settings"
+        android:id="@+id/health_records"
         android:orderInCategory="6"
         android:title="Health records"/>
 </menu>

@@ -15,16 +15,22 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import stanisalv.danylenko.coursepet.PetApplication;
 import stanisalv.danylenko.coursepet.R;
 import stanisalv.danylenko.coursepet.entity.Disease;
+import stanisalv.danylenko.coursepet.entity.Record;
 import stanisalv.danylenko.coursepet.entity.SmartDevice;
 import stanisalv.danylenko.coursepet.entity.animal.Animal;
 import stanisalv.danylenko.coursepet.entity.animal.AnimalDisease;
@@ -325,9 +331,13 @@ public class AnimalViewActivity extends AppCompatActivity {
                 intentDisease.putExtra("Animal", animal);
                 startActivity(intentDisease);
                 return true;
-            case R.id.update_settings:
+            case R.id.health_records:
+                Intent intentRecord = new Intent(this, RecordActivity.class);
+                intentRecord.putExtra("Animal", animal);
+                startActivity(intentRecord);
                 return true;
         }
         return super.onOptionsItemSelected(item);
     }
+
 }
