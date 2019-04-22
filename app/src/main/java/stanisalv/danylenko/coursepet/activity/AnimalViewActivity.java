@@ -311,8 +311,9 @@ public class AnimalViewActivity extends AppCompatActivity {
                 startActivity(intent);
                 return true;
             case R.id.action_grafts:
-                /*Intent intent1 = new Intent(this, StatisticActivity.class);
-                startActivity(intent1);*/
+                Intent intentGraft = new Intent(this, GraftActivity.class);
+                intentGraft.putExtra("Animal", animal);
+                startActivity(intentGraft);
                 return true;
             case R.id.action_sd:
                 return true;
