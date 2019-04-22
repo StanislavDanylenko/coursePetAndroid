@@ -303,7 +303,7 @@ public class AnimalViewActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         switch(id){
-            case R.id.update_animal :
+            case R.id.update_animal:
                 getAnimalFullInfo(animal.getId(), true);
                 return true;
             case R.id.check_country :
@@ -317,8 +317,9 @@ public class AnimalViewActivity extends AppCompatActivity {
             case R.id.action_sd:
                 return true;
             case R.id.action_diseases:
-                Intent intentCountry = new Intent(this, DiseaseActivity.class);
-                startActivity(intentCountry);
+                Intent intentDisease = new Intent(this, DiseaseActivity.class);
+                intentDisease.putExtra("Animal", animal);
+                startActivity(intentDisease);
                 return true;
             case R.id.update_settings:
                 return true;

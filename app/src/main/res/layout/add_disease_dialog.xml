@@ -7,10 +7,10 @@
     android:padding="20dp">
 
     <TextView
-        android:id="@+id/animal_breed_text"
+        android:id="@+id/animal_disease_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Popup"
+        android:text="Select disease"
         android:layout_marginTop="10dp"
         android:textColor="#a3a3a3"
         android:textSize="12sp"
@@ -18,32 +18,50 @@
         android:layout_marginLeft="5sp"/>
 
     <Spinner
-        android:id="@+id/animal_breed"
+        android:id="@+id/animal_disease"
         android:layout_width="match_parent"
         android:layout_height="37dp"/>
 
-    <Button android:id="@+id/dateOfBirthButton"
+    <TextView android:id="@+id/date_of_disease_start_value"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Choose date of birth" />
+        android:textSize="14sp"
+        android:gravity="center"
+        android:layout_marginTop="20sp"/>
 
-    <Button android:id="@+id/dateOfBirthButton1"
+    <Button
+        android:id="@+id/date_of_disease_start"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Choose date of birth" />
+        android:onClick="selectStartDate"
+        android:text="Choose date of start" />
+
+    <TextView android:id="@+id/date_of_disease_end_value"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="14sp"
+        android:gravity="center"
+        android:layout_marginTop="20sp"/>
+
+    <Button
+        android:id="@+id/date_of_disease_end"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="selectEndDate"
+        android:text="Choose date of end" />
 
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-    <AutoCompleteTextView
-        android:id="@+id/name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Name"
-        android:inputType="text"
-        android:maxLines="1"
-        android:singleLine="true" />
+        <AutoCompleteTextView
+            android:id="@+id/treatment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Treatment"
+            android:inputType="text"
+            android:maxLines="1"
+            android:singleLine="true" />
 
     </android.support.design.widget.TextInputLayout>
 
