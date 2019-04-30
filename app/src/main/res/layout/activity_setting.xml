@@ -24,7 +24,7 @@
                 android:textSize="18sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Current country"/>
+                android:text="@string/settings_current_country"/>
 
             <TextView
                 android:id="@+id/animal_breed_text"
@@ -33,7 +33,7 @@
                 android:layout_marginStart="5sp"
                 android:layout_marginLeft="5sp"
                 android:layout_marginTop="10dp"
-                android:text="Select country"
+                android:text="@string/settings_select_country"
                 android:textColor="#a3a3a3"
                 android:textSize="12sp" />
 
@@ -49,7 +49,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:onClick="updateProfile"
-                android:text="UPDATE"
+                android:text="@string/update"
                 android:textStyle="bold" />
 
             <Button
@@ -59,7 +59,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:onClick="updateCacheData"
-                android:text="UPDATE ALL PROFILE DATA"
+                android:text="@string/settings_update_all_profile_data"
                 android:textStyle="bold" />
 
             <Button
@@ -69,7 +69,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:onClick="signOut"
-                android:text="SIGN OUT"
+                android:text="@string/sign_out"
                 android:textStyle="bold"
                 android:textColor="@color/white"
                 app:backgroundTint="@color/delete"

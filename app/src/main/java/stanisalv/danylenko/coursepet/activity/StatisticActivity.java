@@ -41,7 +41,7 @@ public class StatisticActivity extends AppCompatActivity {
             countInCountry.add(new BarEntry((float) item.getCount(), xindex++));
         }
 
-        BarDataSet bardataset = new BarDataSet(countInCountry, "Count in country");
+        BarDataSet bardataset = new BarDataSet(countInCountry, getString(R.string.count_in_country));
         bardataset.setColors(ColorTemplate.COLORFUL_COLORS);
 
         BarData data = new BarData(breedName, bardataset);

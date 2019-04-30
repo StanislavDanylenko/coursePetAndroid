@@ -4,6 +4,7 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
@@ -37,6 +38,9 @@ public class LoginActivity extends AppCompatActivity {
     private View mLoginFormView;
     private PetApplication application;
 
+    private SharedPreferences sharedPreferences;
+    private static final String URL = "URL";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,19 +57,31 @@ public class LoginActivity extends AppCompatActivity {
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                authorize();
+                try {
+                    authorize();
+                } catch (Exception e) {
+                    handleFailedAuth();
+                }
             }
         });
 
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
+
+        sharedPreferences = getPreferences(MODE_PRIVATE);
+
+        String url = loadPreferences(URL);
+        EditText textUrl = findViewById(R.id.urrl);
+        textUrl.setText(url);
     }
 
     private void authorize() {
         showProgress(true);
+        loadUrl();
 
         RetrofitService retrofitService = application.getRetrofitService();
-        AuthService service = retrofitService.getRetrofit().create(AuthService.class);
+        retrofitService.createRetrofit(PetApplication.BASE_URL);
+        AuthService service =  retrofitService.getRetrofit().create(AuthService.class);
         AuthenticationRequestModel model = getAuthValues();
 
         service.authorize(model).enqueue(new Callback<AuthenticationResponseModel>() {
@@ -143,8 +159,8 @@ public class LoginActivity extends AppCompatActivity {
     private void handleFailedAuth() {
         Snackbar.make(getWindow().getDecorView().getRootView(), "AUTH FAILED", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show();
-        mEmailView.setError("Invalid value");
-        mPasswordView.setError("Invalid value");
+        mEmailView.setError(getString(R.string.error_invalid_value));
+        mPasswordView.setError(getString(R.string.error_invalid_value));
         showProgress(false);
     }
 
@@ -174,7 +190,7 @@ public class LoginActivity extends AppCompatActivity {
                     goToMainActivity();
 
                 } else {
-                    Snackbar.make(getWindow().getDecorView().getRootView(), "Cannot load user's data, try later", Snackbar.LENGTH_LONG)
+                    Snackbar.make(getWindow().getDecorView().getRootView(), getString(R.string.error_load_user_data), Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
                 }
             }
@@ -182,10 +198,28 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<CacheModel> call, Throwable throwable) {
                 showProgress(false);
-                Snackbar.make(getWindow().getDecorView().getRootView(), "Cannot load user's data, try later", Snackbar.LENGTH_LONG)
+                Snackbar.make(getWindow().getDecorView().getRootView(), getString(R.string.error_load_user_data), Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         });
+    }
+
+    void loadUrl() {
+        EditText textUrl = findViewById(R.id.urrl);
+        if (textUrl.getText().length() > 0) {
+            PetApplication.BASE_URL = textUrl.getText().toString();
+            savePreferences(URL, textUrl.getText().toString());
+        }
+    }
+
+    public void savePreferences(String key, String value) {
+        SharedPreferences.Editor ed = sharedPreferences.edit();
+        ed.putString(key, value);
+        ed.commit();
+    }
+
+    public String loadPreferences(String key) {
+        return sharedPreferences.getString(key, "");
     }
 
 }

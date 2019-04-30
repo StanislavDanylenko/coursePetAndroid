@@ -90,7 +90,8 @@ public class AnimalViewActivity extends AppCompatActivity {
 
         // Recieve data
         Intent intent = getIntent();
-        animal = (Animal)intent.getSerializableExtra("Animal");
+//        animal = (Animal)intent.getSerializableExtra("Animal");
+        animal = application.getAnimal();
 
         animalSmartDevices = animal.getSmartDevices();
         application.setAnimalSmartDevices(animalSmartDevices);
@@ -108,11 +109,11 @@ public class AnimalViewActivity extends AppCompatActivity {
 
         name.setText(animal.getName());
         gender.setText(animal.getGender().name());
-        smartCardId.setText("Smart card ID: " + animal.getSmartCardId());
-        breed.setText("Breed: " + animal.getAnimalsBreed().getName());
-        height.setText("Height: " + animal.getHeight().toString());
-        length.setText("Length: " + animal.getLength().toString());
-        weight.setText("Weight: " + animal.getWeight().toString());
+        smartCardId.setText(getString(R.string.animal_smart_card_id) + " " + animal.getSmartCardId());
+        breed.setText(getString(R.string.animal_breed) + " " + animal.getAnimalsBreed().getName());
+        height.setText(getString(R.string.height) + " " + animal.getHeight().toString());
+        length.setText(getString(R.string.length) + " " + animal.getLength().toString());
+        weight.setText(getString(R.string.weight) + " " + animal.getWeight().toString());
 
         SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
         birthDate.setText(dateFormatter.format(animal.getBirthDate()));
@@ -177,7 +178,7 @@ public class AnimalViewActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<Void> call, Throwable throwable) {
-                Snackbar.make(getWindow().getDecorView().getRootView(), "Cannot delete animal, try later", Snackbar.LENGTH_LONG)
+                Snackbar.make(getWindow().getDecorView().getRootView(), R.string.error_delete_animal, Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         });
@@ -202,7 +203,10 @@ public class AnimalViewActivity extends AppCompatActivity {
             public void onResponse(Call<Animal> call, Response<Animal> response) {
                 if (response.isSuccessful()) {
                     Animal updatedAnimal = response.body();
+                    animals.remove(animal);
                     animal = updatedAnimal;
+                    animals.add(animal);
+                    application.setAnimal(animal);
                     handleSuccessUpdating();
                 } else {
                     handleFailedUpdating();
@@ -228,9 +232,15 @@ public class AnimalViewActivity extends AppCompatActivity {
                 if(response.isSuccessful()) {
                     AnimalFullInfoDto animalFullInfo = response.body();
 
+                    animals.remove(animal);
+
+                    animal = animalFullInfo.getAnimal();
                     animalDiseases = animalFullInfo.getDiseases();
                     animalGrafts = animalFullInfo.getGrafts();
 
+                    animals.add(animal);
+
+                    application.setAnimal(animal);
                     application.setAnimalDiseases(animalDiseases);
                     application.setAnimalGrafts(animalGrafts);
 
@@ -255,8 +265,8 @@ public class AnimalViewActivity extends AppCompatActivity {
 
     private void showSuccessMessage() {
         new SweetAlertDialog(this, SweetAlertDialog.SUCCESS_TYPE)
-                .setTitleText("Updated!")
-                .setContentText("Successfully updated!")
+                .setTitleText(getResources().getString(R.string.alert_updaated))
+                .setContentText(getResources().getString(R.string.alert_suc_updaated))
                 .show();
     }
 
@@ -283,19 +293,19 @@ public class AnimalViewActivity extends AppCompatActivity {
     }
 
     private void handleFailedUpdating() {
-        Snackbar.make(getWindow().getDecorView().getRootView(), "Cannot update animal, try later", Snackbar.LENGTH_LONG)
+        Snackbar.make(getWindow().getDecorView().getRootView(), getString(R.string.error_update_animal), Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show();
     }
 
     private void handleSuccessUpdating() {
-        height.setText("Height: " + animal.getHeight().toString());
-        length.setText("Length: " + animal.getLength().toString());
-        weight.setText("Weight: " + animal.getWeight().toString());
+        height.setText(getString(R.string.height) + " " + animal.getHeight().toString());
+        length.setText(getString(R.string.length) + " " + animal.getLength().toString());
+        weight.setText(getString(R.string.weight) + " " + animal.getWeight().toString());
         showSuccessMessage();
     }
 
     private void handleFailedGetFullInfo() {
-        Snackbar.make(getWindow().getDecorView().getRootView(), "Cannot get animal full info, try later", Snackbar.LENGTH_LONG)
+        Snackbar.make(getWindow().getDecorView().getRootView(), getString(R.string.error_get_animal), Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show();
     }
 
@@ -314,27 +324,22 @@ public class AnimalViewActivity extends AppCompatActivity {
                 return true;
             case R.id.check_country :
                 Intent intent = new Intent(this, CountryActivity.class);
-                intent.putExtra("Animal", animal);
                 startActivity(intent);
                 return true;
             case R.id.action_grafts:
                 Intent intentGraft = new Intent(this, GraftActivity.class);
-                intentGraft.putExtra("Animal", animal);
                 startActivity(intentGraft);
                 return true;
             case R.id.action_sd:
                 Intent intentSD = new Intent(this, SmartDeviceActivity.class);
-                intentSD.putExtra("Animal", animal);
                 startActivity(intentSD);
                 return true;
             case R.id.action_diseases:
                 Intent intentDisease = new Intent(this, DiseaseActivity.class);
-                intentDisease.putExtra("Animal", animal);
                 startActivity(intentDisease);
                 return true;
             case R.id.health_records:
                 Intent intentRecord = new Intent(this, RecordActivity.class);
-                intentRecord.putExtra("Animal", animal);
                 startActivity(intentRecord);
                 return true;
         }

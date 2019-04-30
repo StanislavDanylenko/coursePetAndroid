@@ -46,8 +46,8 @@ public class CountryActivity extends AppCompatActivity {
         countries = application.getCountries();
         getNameList();
 
-        animal = (Animal) getIntent().getSerializableExtra("Animal");
-
+//        animal = (Animal) getIntent().getSerializableExtra("Animal");
+        animal = application.getAnimal();
         autoCompleteTextView = (AutoCompleteTextView) findViewById(R.id.auto_complete_country);
 
         List<String> catList = countriesNames;
@@ -69,8 +69,8 @@ public class CountryActivity extends AppCompatActivity {
         int positionInTheList = countriesNames.indexOf(countryName);
         if(positionInTheList == -1) {
             new SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE)
-                    .setTitleText("No info")
-                    .setContentText("We can't say you about this country")
+                    .setTitleText(getString(R.string.country_no_info))
+                    .setContentText(getString(R.string.country_no_info))
                     .show();
         } else {
             Country country = getCountry(countryName);
@@ -119,7 +119,7 @@ public class CountryActivity extends AppCompatActivity {
     private void handleSuccessAdding() {
         new SweetAlertDialog(this, SweetAlertDialog.SUCCESS_TYPE)
                 .setTitleText("OK")
-                .setContentText("Yes you can!")
+                .setContentText(getString(R.string.country_ok))
                 .show();
     }
 
@@ -133,15 +133,15 @@ public class CountryActivity extends AppCompatActivity {
         }
 
         new SweetAlertDialog(this, SweetAlertDialog.ERROR_TYPE)
-                .setTitleText("No")
-                .setContentText("No you can't! You need to make such grafts as: \n" + stringBuilder.toString())
+                .setTitleText(getString(R.string.country_no))
+                .setContentText(getString(R.string.country_no_grafts) + stringBuilder.toString())
                 .show();
     }
 
     private void handleFailedRequest() {
         new SweetAlertDialog(this, SweetAlertDialog.ERROR_TYPE)
-                .setTitleText("No")
-                .setContentText("Bad request!")
+                .setTitleText(getString(R.string.country_no))
+                .setContentText(getString(R.string.bad_request))
                 .show();
     }
 

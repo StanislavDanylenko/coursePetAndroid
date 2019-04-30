@@ -41,7 +41,8 @@ public class RecordActivity extends AppCompatActivity {
 
         application = (PetApplication) getApplication();
 
-        animal = (Animal) getIntent().getSerializableExtra("Animal");
+//        animal = (Animal) getIntent().getSerializableExtra("Animal");
+        animal = application.getAnimal();
         records = getRecords(animal.getSmartDevices());
 
         // RW

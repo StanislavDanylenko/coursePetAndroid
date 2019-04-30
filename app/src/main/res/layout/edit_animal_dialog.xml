@@ -14,7 +14,7 @@
             android:id="@+id/edit_weight"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Weight"
+            android:hint="@string/weight"
             android:inputType="numberDecimal"
             android:maxLines="1"
             android:singleLine="true" />
@@ -29,7 +29,7 @@
             android:id="@+id/edit_height"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Height"
+            android:hint="@string/height"
             android:inputType="numberDecimal"
             android:maxLines="1"
             android:singleLine="true" />
@@ -44,7 +44,7 @@
             android:id="@+id/edit_length"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Length"
+            android:hint="@string/length"
             android:inputType="numberDecimal"
             android:maxLines="1"
             android:singleLine="true" />

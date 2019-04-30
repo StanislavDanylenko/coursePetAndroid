@@ -4,29 +4,29 @@
     <item
         android:id="@+id/update_animal"
         android:orderInCategory="1"
-        android:title="Update Animal"
+        android:title="@string/update_animal"
         android:icon="@drawable/ic_loop"
         app:showAsAction="ifRoom"/>
     <item
         android:id="@+id/check_country"
         android:orderInCategory="2"
-        android:title="Check country"
+        android:title="@string/check_country"
         android:icon="@drawable/ic_place"
         app:showAsAction="ifRoom"/>
     <item
         android:id="@+id/action_grafts"
         android:orderInCategory="3"
-        android:title="Grafts"/>
+        android:title="@string/bar_grafts"/>
     <item
         android:id="@+id/action_sd"
         android:orderInCategory="4"
-        android:title="Smart Devices"/>
+        android:title="@string/bar_sd"/>
     <item
         android:id="@+id/action_diseases"
         android:orderInCategory="5"
-        android:title="Diseases"/>
+        android:title="@string/bar_diseases"/>
     <item
         android:id="@+id/health_records"
         android:orderInCategory="6"
-        android:title="Health records"/>
+        android:title="@string/bar_records"/>
 </menu>

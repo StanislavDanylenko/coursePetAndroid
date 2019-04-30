@@ -98,7 +98,7 @@ public class SettingActivity extends AppCompatActivity {
                     User updatedUser = response.body();
                     if (!user.getCountry().equals(updatedUser.getCountry())) {
                         user = updatedUser;
-                        currentCountry.setText("Current country: " + user.getCountry().getName());
+                        currentCountry.setText(getString(R.string.settings_current_country) + user.getCountry().getName());
                         updateStatistic(updatedUser.getCountry().getId());
                     }
                     handleSuccessUpdating();
@@ -133,7 +133,7 @@ public class SettingActivity extends AppCompatActivity {
                     application.setDiseases(cacheModel.getDiseases());
                     application.setGrafts(cacheModel.getGrafts());
 
-                    currentCountry.setText("Current country: " + user.getCountry().getName());
+                    currentCountry.setText(getString(R.string.settings_current_country) + user.getCountry().getName());
 
                     handleSuccessUpdating();
                 } else {
@@ -171,12 +171,12 @@ public class SettingActivity extends AppCompatActivity {
     }
 
     private void handleFailedUpdating() {
-        Snackbar.make(getWindow().getDecorView().getRootView(), "Cannot update profile, try later", Snackbar.LENGTH_LONG)
+        Snackbar.make(getWindow().getDecorView().getRootView(), getString(R.string.error_update_aprofile), Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show();
     }
 
     private void handleSuccessUpdating() {
-        Snackbar.make(getWindow().getDecorView().getRootView(), "Successfully updated!", Snackbar.LENGTH_LONG)
+        Snackbar.make(getWindow().getDecorView().getRootView(), getString(R.string.alert_suc_updaated), Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show();
     }
 

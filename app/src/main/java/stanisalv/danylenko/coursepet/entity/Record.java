@@ -1,5 +1,7 @@
 package stanisalv.danylenko.coursepet.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Date;
@@ -23,6 +25,7 @@ public class Record implements Serializable {
 
     private AnimalState animalState;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     private Date creationDate;
 
 }

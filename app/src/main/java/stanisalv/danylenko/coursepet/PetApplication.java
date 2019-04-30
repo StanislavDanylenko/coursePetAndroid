@@ -22,13 +22,14 @@ import stanisalv.danylenko.coursepet.network.RetrofitService;
 @Setter
 public class PetApplication extends Application {
 
-    public static final String BASE_URL = "http://4eb5e1f4.ngrok.io";
+    public static String BASE_URL = "BEAUTIFUL_URL";
 
     private RetrofitService retrofitService;
     private String TOKEN;
 
     private User user;
     private List<Animal> animals;
+    private Animal animal;
     private List<CountryWithGraft> countries;
     private List<AnimalsBreed> breeds;
     private List<Disease> diseases;

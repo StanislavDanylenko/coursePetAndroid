@@ -26,7 +26,7 @@
                     android:id="@+id/name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Name"
+                    android:hint="@string/add_animal_name"
                     android:inputType="text"
                     android:maxLines="1"
                     android:singleLine="true" />
@@ -41,7 +41,7 @@
                     android:id="@+id/weight"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Weight"
+                    android:hint="@string/add_animal_weight"
                     android:inputType="numberDecimal"
                     android:maxLines="1"
                     android:singleLine="true" />
@@ -56,7 +56,7 @@
                     android:id="@+id/height"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Height"
+                    android:hint="@string/add_animal_height"
                     android:inputType="numberDecimal"
                     android:maxLines="1"
                     android:singleLine="true" />
@@ -71,7 +71,7 @@
                     android:id="@+id/length"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Length"
+                    android:hint="@string/add_animal_length"
                     android:inputType="numberDecimal"
                     android:maxLines="1"
                     android:singleLine="true" />
@@ -82,7 +82,7 @@
             android:id="@+id/animal_breed_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Breed"
+            android:text="@string/add_animal_breed"
             android:layout_marginTop="10dp"
             android:textColor="#a3a3a3"
             android:textSize="12sp"
@@ -105,13 +105,13 @@
                     android:layout_height="wrap_content"
                     android:layout_width="0dp"
                     android:layout_weight="1"
-                    android:text="Male"
+                    android:text="@string/add_animal_male"
                     android:onClick="onRadioButtonClicked"/>
                 <RadioButton android:id="@+id/gender_female"
                     android:layout_height="wrap_content"
                     android:layout_width="0dp"
                     android:layout_weight="1"
-                    android:text="Female"
+                    android:text="@string/add_animal_female"
                     android:onClick="onRadioButtonClicked"/>
             </RadioGroup>
 
@@ -125,7 +125,7 @@
             <Button android:id="@+id/dateOfBirthButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Choose date of birth"
+                android:text="@string/add_animal_choose_date_of_birth"
                 android:onClick="setDate"/>
 
             <Button
@@ -135,7 +135,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:onClick="addAnimal"
-                android:text="Add"
+                android:text="@string/add"
                 android:textColor="@color/white"
                 android:textStyle="bold"
                 app:backgroundTint="@color/colorAccent" />

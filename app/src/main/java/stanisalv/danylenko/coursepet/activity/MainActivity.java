@@ -12,6 +12,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.google.firebase.messaging.FirebaseMessaging;
+
 import java.util.List;
 
 import retrofit2.Call;
@@ -26,6 +28,8 @@ import stanisalv.danylenko.coursepet.network.RetrofitService;
 import stanisalv.danylenko.coursepet.network.retrofit.AnimalService;
 
 public class MainActivity extends AppCompatActivity {
+
+    private final String TOPIC = "JavaSampleApproach";
 
     private PetApplication application;
 
@@ -53,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new GridLayoutManager(this, 1));
 
-        myAdapter = new RecyclerViewAdapter(this, animals);
+        myAdapter = new RecyclerViewAdapter(this, animals, application);
         recyclerView.setAdapter(myAdapter);
 
 
@@ -66,6 +70,8 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        FirebaseMessaging.getInstance().subscribeToTopic(TOPIC);
 
     }
 
@@ -111,7 +117,7 @@ public class MainActivity extends AppCompatActivity {
 
            @Override
            public void onFailure(Call<List<Animal>> call, Throwable throwable) {
-               Snackbar.make(getWindow().getDecorView().getRootView(), "Cannot update animal list, try later", Snackbar.LENGTH_LONG)
+               Snackbar.make(getWindow().getDecorView().getRootView(), getString(R.string.error_update_animal_list), Snackbar.LENGTH_LONG)
                        .setAction("Action", null).show();
            }
        });

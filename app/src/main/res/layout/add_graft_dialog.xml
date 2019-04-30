@@ -10,7 +10,7 @@
         android:id="@+id/animal_graft_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Choose graft"
+        android:text="@string/choose_graft"
         android:layout_marginTop="10dp"
         android:textColor="#a3a3a3"
         android:textSize="12sp"
@@ -34,6 +34,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="selectStartDate"
-        android:text="Choose date of graft" />
+        android:text="@string/choose_date_of_graft" />
 
 </LinearLayout>

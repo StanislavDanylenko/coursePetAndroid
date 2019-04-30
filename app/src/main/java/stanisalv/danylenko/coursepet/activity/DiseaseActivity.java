@@ -70,8 +70,8 @@ public class DiseaseActivity extends AppCompatActivity {
         application = (PetApplication) getApplication();
         animalDiseases = application.getAnimalDiseases();
         diseases = application.getDiseases();
-        animal = (Animal) getIntent().getSerializableExtra("Animal");
-
+//        animal = (Animal) getIntent().getSerializableExtra("Animal");
+        animal = application.getAnimal();
         // RW
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.disease_recyclerview_id);
 
@@ -101,7 +101,7 @@ public class DiseaseActivity extends AppCompatActivity {
         View promptView = layoutInflater.inflate(R.layout.add_disease_dialog, null);
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
         alertDialogBuilder.setView(promptView);
-        alertDialogBuilder.setTitle("Add disease");
+        alertDialogBuilder.setTitle(getString(R.string.add_disease));
 
         startDateTime = (TextView) promptView.findViewById(R.id.date_of_disease_start_value);
         endDateTime = (TextView) promptView.findViewById(R.id.date_of_disease_end_value);
@@ -130,7 +130,7 @@ public class DiseaseActivity extends AppCompatActivity {
         dropdownDisease.setSelection(0);
 
         alertDialogBuilder.setCancelable(false)
-                .setPositiveButton("Add", new DialogInterface.OnClickListener() {
+                .setPositiveButton(getString(R.string.add), new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         // todo add actions here
                         if(validateValuesFromUpdateInputs()) {
@@ -140,7 +140,7 @@ public class DiseaseActivity extends AppCompatActivity {
                         dialog.dismiss();
                     }
                 })
-                .setNegativeButton("Cancel",
+                .setNegativeButton(getString(R.string.cancel),
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 dialog.cancel();
@@ -251,8 +251,8 @@ public class DiseaseActivity extends AppCompatActivity {
 
     private void handleFailedAdding(){
         new SweetAlertDialog(this, SweetAlertDialog.ERROR_TYPE)
-                .setTitleText("Error")
-                .setContentText("Error while saving, try later!")
+                .setTitleText(getString(R.string.error))
+                .setContentText(getString(R.string.error_saving))
                 .show();
     }
 

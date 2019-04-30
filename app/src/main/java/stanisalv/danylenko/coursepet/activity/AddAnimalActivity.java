@@ -166,7 +166,7 @@ public class AddAnimalActivity extends AppCompatActivity {
     }
 
     private void handleFailedAdding() {
-        Snackbar.make(getWindow().getDecorView().getRootView(), "Cannot add animal, try later", Snackbar.LENGTH_LONG)
+        Snackbar.make(getWindow().getDecorView().getRootView(), R.string.error_add_animal, Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show();
     }
 
@@ -174,7 +174,7 @@ public class AddAnimalActivity extends AppCompatActivity {
 
         for(TextView textView : views) {
             if("".equals(textView.getText())) {
-                textView.setError("This field is required");
+                textView.setError(getResources().getString(R.string.error_field_required));
                 return false;
             }
         }

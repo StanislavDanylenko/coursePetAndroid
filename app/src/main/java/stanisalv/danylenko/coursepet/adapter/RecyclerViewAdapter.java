@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import stanisalv.danylenko.coursepet.PetApplication;
 import stanisalv.danylenko.coursepet.R;
 import stanisalv.danylenko.coursepet.activity.AnimalViewActivity;
 import stanisalv.danylenko.coursepet.entity.animal.Animal;
@@ -20,11 +21,13 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     private Context mContext ;
     private List<Animal> mData ;
+    private PetApplication application;
 
 
-    public RecyclerViewAdapter(Context mContext, List<Animal> mData) {
+    public RecyclerViewAdapter(Context mContext, List<Animal> mData, PetApplication application) {
         this.mContext = mContext;
         this.mData = mData;
+        this.application = application;
     }
 
     @Override
@@ -47,7 +50,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
                 Intent intent = new Intent(mContext, AnimalViewActivity.class);
                 // passing data to the book activity
-                intent.putExtra("Animal", mData.get(position));
+                //intent.putExtra("Animal", mData.get(position));
+                application.setAnimal(mData.get(position));
                 // start the activity
                 mContext.startActivity(intent);
 

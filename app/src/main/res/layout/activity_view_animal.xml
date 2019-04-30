@@ -30,7 +30,7 @@
                 android:id="@+id/animal_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Name"
+                android:text="@string/animal_name"
                 android:layout_marginTop="10dp"
                 android:textSize="20sp"
                 android:textStyle="bold"/>
@@ -40,7 +40,7 @@
                 android:textSize="18sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Gender"
+                android:text="@string/animal_gender"
                 android:layout_marginTop="10dp"/>
 
             <TextView
@@ -48,14 +48,14 @@
                 android:textSize="18sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Smart card id"/>
+                android:text="@string/animal_smart_card_id"/>
 
             <TextView
                 android:id="@+id/animal_breed"
                 android:textSize="18sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Animal Breed"
+                android:text="@string/animal_breed"
                 android:layout_marginTop="10dp"/>
 
             <TextView
@@ -64,28 +64,28 @@
                 android:layout_marginTop="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Birth date"/>
+                android:text="@string/animal_birth_date"/>
 
             <TextView
                 android:id="@+id/animal_height"
                 android:layout_marginTop="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Height"/>
+                android:text="@string/animal_height"/>
 
             <TextView
                 android:id="@+id/animal_weight"
                 android:layout_marginTop="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Weight"/>
+                android:text="@string/animal_weight"/>
 
             <TextView
                 android:id="@+id/animal_length"
                 android:layout_marginTop="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Length"
+                android:text="@string/animal_length"
                 android:layout_marginBottom="15sp"/>
 
             <Button
@@ -93,14 +93,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:onClick="getAlert"
-                android:text="Edit" />
+                android:text="@string/edit" />
 
             <Button
                 android:id="@+id/delete_animal_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:onClick="deleteAnimal"
-                android:text="Delete"
+                android:text="@string/delete"
                 android:textColor="@color/white"
                 app:backgroundTint="@color/delete"/>
 

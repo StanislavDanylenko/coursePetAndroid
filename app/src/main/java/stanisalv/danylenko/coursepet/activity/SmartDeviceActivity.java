@@ -61,7 +61,8 @@ public class SmartDeviceActivity extends AppCompatActivity {
 
         application = (PetApplication) getApplication();
 
-        animal = (Animal) getIntent().getSerializableExtra("Animal");
+//        animal = (Animal) getIntent().getSerializableExtra("Animal");
+        animal = application.getAnimal();
         smartDevices = animal.getSmartDevices();
 
         // RW
@@ -91,14 +92,14 @@ public class SmartDeviceActivity extends AppCompatActivity {
         View promptView = layoutInflater.inflate(R.layout.add_sd_dialog, null);
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
         alertDialogBuilder.setView(promptView);
-        alertDialogBuilder.setTitle("Add graft");
+        alertDialogBuilder.setTitle(getString(R.string.add_sd));
 
         sdName = promptView.findViewById(R.id.name);
         sdMac = promptView.findViewById(R.id.mac);
         sdBatteryLevel = promptView.findViewById(R.id.battery_level);
 
         alertDialogBuilder.setCancelable(false)
-                .setPositiveButton("Add", new DialogInterface.OnClickListener() {
+                .setPositiveButton(getString(R.string.add), new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         // todo add actions here
                         if(validateValuesFromUpdateInputs()) {
@@ -108,7 +109,7 @@ public class SmartDeviceActivity extends AppCompatActivity {
                         dialog.dismiss();
                     }
                 })
-                .setNegativeButton("Cancel",
+                .setNegativeButton(getString(R.string.cancel),
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 dialog.cancel();
@@ -139,8 +140,8 @@ public class SmartDeviceActivity extends AppCompatActivity {
 
     private void handleFailedAdding(){
         new SweetAlertDialog(this, SweetAlertDialog.ERROR_TYPE)
-                .setTitleText("Error")
-                .setContentText("Error while saving, try later!")
+                .setTitleText(getString(R.string.error))
+                .setContentText(getString(R.string.error_saving))
                 .show();
     }
 

@@ -56,7 +56,7 @@ public class RecordRecyclerViewAdapter extends RecyclerView.Adapter<RecordRecycl
         holder.record_pulse.setText("Pulse: " + mData.get(position).getPulse().toString());
         holder.record_temperature.setText("Temperature: " + mData.get(position).getTemperature().toString());
 
-        SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
         holder.record_creationDate.setText("Creation date: " + dateFormatter.format(mData.get(position).getCreationDate()));
 
