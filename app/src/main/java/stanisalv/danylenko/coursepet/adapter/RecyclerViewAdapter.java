@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.List;
 
 import stanisalv.danylenko.coursepet.PetApplication;
@@ -43,7 +45,15 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public void onBindViewHolder(MyViewHolder holder, final int position) {
 
         holder.animal_title.setText(mData.get(position).getName());
-        holder.img_animal_thumbnail.setImageResource(R.drawable.logo);
+
+        String photoURL = mData.get(position).getPhotoURL();
+
+        if(photoURL != null) {
+            Picasso.get().load(photoURL).into(holder.img_animal_thumbnail);
+        } else {
+            holder.img_animal_thumbnail.setImageResource(R.drawable.logo);
+        }
+
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

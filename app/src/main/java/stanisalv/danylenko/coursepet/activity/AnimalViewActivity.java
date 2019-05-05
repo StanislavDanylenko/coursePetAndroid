@@ -15,6 +15,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -105,7 +107,16 @@ public class AnimalViewActivity extends AppCompatActivity {
     }
 
     private void setAnimalData(Animal animal) {
+
         img.setImageResource(R.drawable.logo);
+
+        String photoURL = animal.getPhotoURL();
+
+        if(photoURL != null) {
+            Picasso.get().load(photoURL).into(img);
+        } else {
+            img.setImageResource(R.drawable.logo);
+        }
 
         name.setText(animal.getName());
         gender.setText(animal.getGender().name());
