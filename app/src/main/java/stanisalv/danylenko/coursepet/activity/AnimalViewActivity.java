@@ -92,13 +92,11 @@ public class AnimalViewActivity extends AppCompatActivity {
 
         // Recieve data
         Intent intent = getIntent();
-//        animal = (Animal)intent.getSerializableExtra("Animal");
         animal = application.getAnimal();
 
         animalSmartDevices = animal.getSmartDevices();
         application.setAnimalSmartDevices(animalSmartDevices);
 
-                // Setting values
         setAnimalData(animal);
 
         getAnimalFullInfo(animal.getId(), false);
@@ -120,11 +118,11 @@ public class AnimalViewActivity extends AppCompatActivity {
 
         name.setText(animal.getName());
         gender.setText(animal.getGender().name());
-        smartCardId.setText(getString(R.string.animal_smart_card_id) + " " + animal.getSmartCardId());
-        breed.setText(getString(R.string.animal_breed) + " " + animal.getAnimalsBreed().getName());
-        height.setText(getString(R.string.height) + " " + animal.getHeight().toString());
-        length.setText(getString(R.string.length) + " " + animal.getLength().toString());
-        weight.setText(getString(R.string.weight) + " " + animal.getWeight().toString());
+        smartCardId.setText(getString(R.string.animal_smart_card_id) + ": " + animal.getSmartCardId());
+        breed.setText(getString(R.string.animal_breed) + ": " + animal.getAnimalsBreed().getName());
+        height.setText(getString(R.string.height) + ": " + animal.getHeight().toString());
+        length.setText(getString(R.string.length) + ":  " + animal.getLength().toString());
+        weight.setText(getString(R.string.weight) + ":  " + animal.getWeight().toString());
 
         SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
         birthDate.setText(dateFormatter.format(animal.getBirthDate()));
@@ -136,7 +134,7 @@ public class AnimalViewActivity extends AppCompatActivity {
         View promptView = layoutInflater.inflate(R.layout.edit_animal_dialog, null);
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
         alertDialogBuilder.setView(promptView);
-        alertDialogBuilder.setTitle("Edit " + animal.getName());
+        alertDialogBuilder.setTitle(getString(R.string.edit) + " " + animal.getName());
 
         editLength = (EditText) promptView.findViewById(R.id.edit_length);
         editWeight = (EditText) promptView.findViewById(R.id.edit_weight);
@@ -146,7 +144,6 @@ public class AnimalViewActivity extends AppCompatActivity {
         editWeight.setText(animal.getWeight().toString());
         editLength.setText(animal.getLength().toString());
 
-        //final EditText editText = (EditText) promptView.findViewById(R.id.edittext);
         // setup a dialog window
         alertDialogBuilder.setCancelable(false)
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -156,13 +153,13 @@ public class AnimalViewActivity extends AppCompatActivity {
                                 AnimalUpdateDto dto = getValuesFromUpdateInputs();
                                 updateAnimal(animal.getId(), dto);
                             } catch (Exception e) {
-                                Snackbar.make(getWindow().getDecorView().getRootView(), "Invalid data", Snackbar.LENGTH_LONG)
+                                Snackbar.make(getWindow().getDecorView().getRootView(), R.string.error_invalid_data, Snackbar.LENGTH_LONG)
                                         .setAction("Action", null).show();
                             }
                         }
                     }
                 })
-                .setNegativeButton("Cancel",
+                .setNegativeButton(getString(R.string.cancel),
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 dialog.cancel();
@@ -295,7 +292,7 @@ public class AnimalViewActivity extends AppCompatActivity {
     private boolean validateValuesFromUpdateInputs(EditText... views) {
         for(EditText textView : views) {
             if("".equals(textView.getText())) {
-                textView.setError("This field is required");
+                textView.setError(getResources().getString(R.string.error_field_required));
                 return false;
             }
         }
@@ -309,9 +306,9 @@ public class AnimalViewActivity extends AppCompatActivity {
     }
 
     private void handleSuccessUpdating() {
-        height.setText(getString(R.string.height) + " " + animal.getHeight().toString());
-        length.setText(getString(R.string.length) + " " + animal.getLength().toString());
-        weight.setText(getString(R.string.weight) + " " + animal.getWeight().toString());
+        height.setText(getString(R.string.height) + ": " + animal.getHeight().toString());
+        length.setText(getString(R.string.length) + ": " + animal.getLength().toString());
+        weight.setText(getString(R.string.weight) + ": " + animal.getWeight().toString());
         showSuccessMessage();
     }
 

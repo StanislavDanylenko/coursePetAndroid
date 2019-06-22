@@ -70,14 +70,14 @@ public class LoginActivity extends AppCompatActivity {
 
         sharedPreferences = getPreferences(MODE_PRIVATE);
 
-        String url = loadPreferences(URL);
-        EditText textUrl = findViewById(R.id.urrl);
-        textUrl.setText(url);
+//        String url = loadPreferences(URL);
+//        EditText textUrl = findViewById(R.id.urrl);
+//        textUrl.setText(url);
     }
 
     private void authorize() {
         showProgress(true);
-        loadUrl();
+        //loadUrl();
 
         RetrofitService retrofitService = application.getRetrofitService();
         retrofitService.createRetrofit(PetApplication.BASE_URL);
@@ -157,7 +157,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void handleFailedAuth() {
-        Snackbar.make(getWindow().getDecorView().getRootView(), "AUTH FAILED", Snackbar.LENGTH_LONG)
+        Snackbar.make(getWindow().getDecorView().getRootView(), R.string.error_auth_failed, Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show();
         mEmailView.setError(getString(R.string.error_invalid_value));
         mPasswordView.setError(getString(R.string.error_invalid_value));
@@ -204,7 +204,7 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    void loadUrl() {
+    /*void loadUrl() {
         EditText textUrl = findViewById(R.id.urrl);
         if (textUrl.getText().length() > 0) {
             PetApplication.BASE_URL = textUrl.getText().toString();
@@ -220,7 +220,7 @@ public class LoginActivity extends AppCompatActivity {
 
     public String loadPreferences(String key) {
         return sharedPreferences.getString(key, "");
-    }
+    }*/
 
 }
 

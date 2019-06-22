@@ -46,7 +46,6 @@ public class CountryActivity extends AppCompatActivity {
         countries = application.getCountries();
         getNameList();
 
-//        animal = (Animal) getIntent().getSerializableExtra("Animal");
         animal = application.getAnimal();
         autoCompleteTextView = (AutoCompleteTextView) findViewById(R.id.auto_complete_country);
 

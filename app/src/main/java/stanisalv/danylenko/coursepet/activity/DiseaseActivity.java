@@ -70,7 +70,7 @@ public class DiseaseActivity extends AppCompatActivity {
         application = (PetApplication) getApplication();
         animalDiseases = application.getAnimalDiseases();
         diseases = application.getDiseases();
-//        animal = (Animal) getIntent().getSerializableExtra("Animal");
+
         animal = application.getAnimal();
         // RW
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.disease_recyclerview_id);

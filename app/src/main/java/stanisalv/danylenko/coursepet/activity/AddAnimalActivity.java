@@ -195,7 +195,7 @@ public class AddAnimalActivity extends AppCompatActivity {
             animal.setLength(Double.parseDouble(animalLength.getText().toString()));
             animal.setWeight(Double.parseDouble(animalWeight.getText().toString()));
         } catch (NumberFormatException e) {
-            Snackbar.make(getWindow().getDecorView().getRootView(), "Invalid number params", Snackbar.LENGTH_LONG)
+            Snackbar.make(getWindow().getDecorView().getRootView(), R.string.invalid_number_params, Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show();
             return false;
         }

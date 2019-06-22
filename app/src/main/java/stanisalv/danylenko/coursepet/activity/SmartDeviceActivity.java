@@ -61,7 +61,6 @@ public class SmartDeviceActivity extends AppCompatActivity {
 
         application = (PetApplication) getApplication();
 
-//        animal = (Animal) getIntent().getSerializableExtra("Animal");
         animal = application.getAnimal();
         smartDevices = animal.getSmartDevices();
 

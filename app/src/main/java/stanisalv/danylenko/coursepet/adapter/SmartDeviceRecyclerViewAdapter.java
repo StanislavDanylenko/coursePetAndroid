@@ -57,9 +57,9 @@ public class SmartDeviceRecyclerViewAdapter extends RecyclerView.Adapter<SmartDe
             @Override
             public void onClick(View v) {
                 new SweetAlertDialog(mContext, SweetAlertDialog.WARNING_TYPE)
-                        .setTitleText("Are you sure?")
-                        .setContentText("Won't be able to recover this file!")
-                        .setConfirmText("Yes,delete it!")
+                        .setTitleText(mContext.getString(R.string.are_you_sure))
+                        .setContentText(mContext.getString(R.string.one_way))
+                        .setConfirmText(mContext.getString(R.string.delete_agreement))
                         .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
                             @Override
                             public void onClick(SweetAlertDialog sDialog) {
@@ -104,15 +104,15 @@ public class SmartDeviceRecyclerViewAdapter extends RecyclerView.Adapter<SmartDe
 
     private void handleSuccessDeleting() {
         new SweetAlertDialog(mContext, SweetAlertDialog.SUCCESS_TYPE)
-                .setTitleText("Success!")
-                .setContentText("Disease was deleted!")
+                .setTitleText(mContext.getString(R.string.alert_suc_deleted))
+                .setContentText(mContext.getString(R.string.alert_suc_deleted_sd))
                 .show();
     }
 
     private void handleFailureDeleting() {
         new SweetAlertDialog(mContext, SweetAlertDialog.ERROR_TYPE)
-                .setTitleText("Error")
-                .setContentText("Cannot delete disease!")
+                .setTitleText(mContext.getString(R.string.error))
+                .setContentText(mContext.getString(R.string.error_delete_sd))
                 .show();
     }
 

@@ -26,8 +26,13 @@ public class NotificationService extends FirebaseMessagingService {
             String title = remoteMessage.getNotification().getTitle();
             String body = remoteMessage.getNotification().getBody();
             Log.e(TAG, "Title: " + title);
-            Log.e(TAG, "Body: " + body);
-            showNotification(this, title, body, new Intent(this, MainActivity.class));
+            Log.e(TAG, "Body: " + body);String message = generateLocalizedMessage(body);
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            showNotification(this, getString(R.string.warning), message, new Intent(this, MainActivity.class));
         }
 
         if (remoteMessage.getData().size() > 0) {
@@ -62,5 +67,14 @@ public class NotificationService extends FirebaseMessagingService {
         mBuilder.setContentIntent(resultPendingIntent);
 
         notificationManager.notify(2, mBuilder.build());
+    }
+
+    private String generateLocalizedMessage(String errorCode) {
+        switch (errorCode) {
+            case "1": return getString(R.string.higherTemperature);
+            case "2": return getString(R.string.higherPulse);
+            case "3": return getString(R.string.higherTemperature) + ". " + getString(R.string.higherPulse);
+            default: return  "";
+        }
     }
 }

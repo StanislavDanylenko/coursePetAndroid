@@ -50,33 +50,19 @@ public class RecordRecyclerViewAdapter extends RecyclerView.Adapter<RecordRecycl
     @Override
     public void onBindViewHolder(RecordViewHolder holder, final int position) {
 
-        holder.record_animalState.setText("STATE: " + mData.get(position).getAnimalState().toString());
-        holder.record_longitude.setText("Longitude: " + mData.get(position).getLongitude().toString());
-        holder.record_latitude.setText("Latitude: " + mData.get(position).getLatitude().toString());
-        holder.record_pulse.setText("Pulse: " + mData.get(position).getPulse().toString());
-        holder.record_temperature.setText("Temperature: " + mData.get(position).getTemperature().toString());
+        holder.record_animalState.setText(mContext.getString(R.string.animal_state) + mData.get(position).getAnimalState().toString());
+        holder.record_longitude.setText(mContext.getString(R.string.longitude) + mData.get(position).getLongitude().toString());
+        holder.record_latitude.setText(mContext.getString(R.string.liatitude) + mData.get(position).getLatitude().toString());
+        holder.record_pulse.setText(mContext.getString(R.string.pulse) + mData.get(position).getPulse().toString());
+        holder.record_temperature.setText(mContext.getString(R.string.temperature) + mData.get(position).getTemperature().toString());
 
         SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
         holder.record_creationDate.setText("Creation date: " + dateFormatter.format(mData.get(position).getCreationDate()));
 
-        holder.cardView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                /*new SweetAlertDialog(mContext, SweetAlertDialog.WARNING_TYPE)
-                        .setTitleText("Are you sure?")
-                        .setContentText("Won't be able to recover this file!")
-                        .setConfirmText("Yes,delete it!")
-                        .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
-                            @Override
-                            public void onClick(SweetAlertDialog sDialog) {
-                                deleteSmartDevice(mData.get(position).getId(), position);
-                                sDialog.dismissWithAnimation();
-                            }
-                        })
-                        .show();*/
-            }
-        });
+        /*if(mData.get(position).getPulse() > 125.0 || mData.get(position).getTemperature() > 46.0) {
+            holder.cardView.setBackgroundColor(0xFFFFAD95);
+        }*/
     }
 
     @Override
@@ -111,15 +97,15 @@ public class RecordRecyclerViewAdapter extends RecyclerView.Adapter<RecordRecycl
 
     private void handleSuccessDeleting() {
         new SweetAlertDialog(mContext, SweetAlertDialog.SUCCESS_TYPE)
-                .setTitleText("Success!")
-                .setContentText("Disease was deleted!")
+                .setTitleText(mContext.getString(R.string.alert_suc_deleted))
+                .setContentText(mContext.getString(R.string.alert_suc_deleted_record))
                 .show();
     }
 
     private void handleFailureDeleting() {
         new SweetAlertDialog(mContext, SweetAlertDialog.ERROR_TYPE)
-                .setTitleText("Error")
-                .setContentText("Cannot delete disease!")
+                .setTitleText(mContext.getString(R.string.error))
+                .setContentText(mContext.getString(R.string.error_delete_record))
                 .show();
     }
 

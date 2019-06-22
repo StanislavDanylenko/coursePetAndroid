@@ -49,7 +49,7 @@ public class SettingActivity extends AppCompatActivity {
         userDto = new UserDto();
 
         currentCountry = (TextView) findViewById(R.id.current_country);
-        currentCountry.setText("Current country: " + user.getCountry().getName());
+        currentCountry.setText(getString(R.string.current_country) + user.getCountry().getName());
 
         final Spinner dropdownBreed = (Spinner) findViewById(R.id.countries);
         final ArrayAdapter<CountryWithGraft> adapterCountry = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, countries);
@@ -98,7 +98,7 @@ public class SettingActivity extends AppCompatActivity {
                     User updatedUser = response.body();
                     if (!user.getCountry().equals(updatedUser.getCountry())) {
                         user = updatedUser;
-                        currentCountry.setText(getString(R.string.settings_current_country) + user.getCountry().getName());
+                        currentCountry.setText(getString(R.string.current_country) + user.getCountry().getName());
                         updateStatistic(updatedUser.getCountry().getId());
                     }
                     handleSuccessUpdating();
@@ -133,7 +133,7 @@ public class SettingActivity extends AppCompatActivity {
                     application.setDiseases(cacheModel.getDiseases());
                     application.setGrafts(cacheModel.getGrafts());
 
-                    currentCountry.setText(getString(R.string.settings_current_country) + user.getCountry().getName());
+                    currentCountry.setText(getString(R.string.current_country) + user.getCountry().getName());
 
                     handleSuccessUpdating();
                 } else {

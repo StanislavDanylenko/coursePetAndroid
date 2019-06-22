@@ -96,6 +96,10 @@ public class MainActivity extends AppCompatActivity {
             case R.id.update_settings:
                 updateAnimals();
                 return true;
+            case R.id.qr:
+                Intent intent2 = new Intent(this, BarcodeActivity.class);
+                startActivity(intent2);
+                return true;
         }
         return super.onOptionsItemSelected(item);
     }

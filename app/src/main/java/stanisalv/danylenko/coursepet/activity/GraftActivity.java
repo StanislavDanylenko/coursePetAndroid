@@ -69,7 +69,6 @@ public class GraftActivity extends AppCompatActivity {
         animalGrafts = application.getAnimalGrafts();
         grafts = application.getGrafts();
 
-//        animal = (Animal) getIntent().getSerializableExtra("Animal");
         animal = application.getAnimal();
         // RW
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.graft_recyclerview_id);

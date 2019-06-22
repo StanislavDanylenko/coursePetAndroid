@@ -22,7 +22,7 @@ import stanisalv.danylenko.coursepet.network.RetrofitService;
 @Setter
 public class PetApplication extends Application {
 
-    public static String BASE_URL = "BEAUTIFUL_URL";
+    public static String BASE_URL = "https://coursepet.herokuapp.com";
 
     private RetrofitService retrofitService;
     private String TOKEN;
