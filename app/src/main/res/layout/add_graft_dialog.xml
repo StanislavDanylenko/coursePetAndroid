@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="20dp">
+
+    <TextView
+        android:id="@+id/animal_graft_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/choose_graft"
+        android:layout_marginTop="10dp"
+        android:textColor="#a3a3a3"
+        android:textSize="12sp"
+        android:layout_marginStart="5sp"
+        android:layout_marginLeft="5sp"/>
+
+    <Spinner
+        android:id="@+id/animal_graft"
+        android:layout_width="match_parent"
+        android:layout_height="37dp"/>
+
+    <TextView android:id="@+id/graft_date_value"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="14sp"
+        android:gravity="center"
+        android:layout_marginTop="20sp"/>
+
+    <Button
+        android:id="@+id/graft_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="selectStartDate"
+        android:text="@string/choose_date_of_graft" />
+
+</LinearLayout>

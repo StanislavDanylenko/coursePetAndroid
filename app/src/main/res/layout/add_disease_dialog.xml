@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="20dp">
+
+    <TextView
+        android:id="@+id/animal_disease_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/select_disease"
+        android:layout_marginTop="10dp"
+        android:textColor="#a3a3a3"
+        android:textSize="12sp"
+        android:layout_marginStart="5sp"
+        android:layout_marginLeft="5sp"/>
+
+    <Spinner
+        android:id="@+id/animal_disease"
+        android:layout_width="match_parent"
+        android:layout_height="37dp"/>
+
+    <TextView android:id="@+id/date_of_disease_start_value"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="14sp"
+        android:gravity="center"
+        android:layout_marginTop="20sp"/>
+
+    <Button
+        android:id="@+id/date_of_disease_start"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="selectStartDate"
+        android:text="@string/choose_date_of_start" />
+
+    <TextView android:id="@+id/date_of_disease_end_value"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="14sp"
+        android:gravity="center"
+        android:layout_marginTop="20sp"/>
+
+    <Button
+        android:id="@+id/date_of_disease_end"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="selectEndDate"
+        android:text="@string/choose_date_of_end" />
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <AutoCompleteTextView
+            android:id="@+id/treatment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/treatment"
+            android:inputType="text"
+            android:maxLines="1"
+            android:singleLine="true" />
+
+    </android.support.design.widget.TextInputLayout>
+
+</LinearLayout>
