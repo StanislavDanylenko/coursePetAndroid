@@ -26,15 +26,15 @@ public class NotificationService extends FirebaseMessagingService {
             String title = remoteMessage.getNotification().getTitle();
             String body = remoteMessage.getNotification().getBody();
             Log.e(TAG, "Title: " + title);
-            Log.e(TAG, "Body: " + body);String message = generateLocalizedMessage(body);
+            Log.e(TAG, "Body: " + body);
+            String message = generateLocalizedMessage(body);
             try {
                 Thread.sleep(500);
+                showNotification(this, getString(R.string.warning), message, new Intent(this, MainActivity.class));
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            showNotification(this, getString(R.string.warning), message, new Intent(this, MainActivity.class));
         }
-
         if (remoteMessage.getData().size() > 0) {
             Log.e(TAG, "Data: " + remoteMessage.getData());
         }
